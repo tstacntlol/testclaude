@@ -35,40 +35,55 @@ Deze website is speciaal ontworpen met toegankelijkheid als prioriteit, aangezie
 
 Alle kleuren zijn gekozen met WCAG 2.1 AA contrast richtlijnen in gedachten.
 
-## 🚀 Gebruik
+## 🚀 Deployment
+
+### 🌟 Aanbevolen: Netlify (Simpelst!)
+
+**De gemakkelijkste manier om deze website te hosten:**
+
+✅ **Geen OAuth server setup nodig** - Netlify heeft ingebouwde authenticatie
+✅ **Automatische deployments** - Push naar GitHub = instant update
+✅ **Gratis hosting** met HTTPS en globale CDN
+✅ **CMS werkt direct** na 5 minuten setup
+
+📖 **[Volg de Netlify Setup Guide →](NETLIFY_SETUP.md)**
+
+**Snelle start:**
+1. Ga naar [netlify.com](https://netlify.com) en log in met GitHub
+2. Import je repository
+3. Enable Netlify Identity & Git Gateway
+4. Klaar! Ga naar `/admin` en log in
+
+---
+
+### Alternatief: GitHub Pages
+
+Je kunt ook GitHub Pages gebruiken, maar dit vereist extra setup:
+
+📖 **[OAuth Server Setup voor GitHub Pages →](oauth-server/README.md)**
+
+---
+
+### Lokaal Testen
 
 Open simpelweg `index.html` in een moderne webbrowser. Geen server of build stappen nodig.
 
 ## 📝 Content Beheer met Decap CMS
 
-Deze website gebruikt **Decap CMS** (voorheen Netlify CMS) voor eenvoudig content beheer zonder technische kennis.
+Deze website gebruikt **Decap CMS** voor eenvoudig content beheer zonder technische kennis.
 
 ### Toegang tot het CMS
 
-1. Navigeer naar: `https://tstacntlol.github.io/testclaude/admin`
-2. Klik op "Login with GitHub"
-3. Authenticeer de applicatie met je GitHub account
-4. Geef toegang tot de repository
+**Op Netlify:**
+1. Ga naar `https://jouw-site.netlify.app/admin`
+2. Klik "Login with Netlify Identity"
+3. Gebruik je uitnodigingslink om een account aan te maken
+4. Log in en begin met content beheren!
 
-**⚠️ Belangrijk: OAuth Setup Vereist**
-
-Om de CMS te gebruiken moet je eerst een **OAuth server** opzetten voor GitHub authenticatie. Dit is nodig omdat GitHub Pages geen backend heeft voor authenticatie.
-
-### 🚀 OAuth Server Setup (Eenmalig, ~10 minuten)
-
-We hebben een kant-en-klare OAuth server voor je gemaakt in de `oauth-server/` map. Volg deze stappen:
-
-1. **Lees de instructies** in [`oauth-server/README.md`](oauth-server/README.md)
-2. **Deploy naar Vercel** (gratis) - volg de gedetailleerde stappen
-3. **Update de CMS config** met jouw Vercel URL
-
-**Korte samenvatting:**
-- Maak een GitHub OAuth App aan
-- Deploy de `oauth-server` folder naar Vercel
-- Update `admin/config.yml` met jouw Vercel URL
-- Klaar! De CMS werkt nu volledig
-
-📖 **Zie [`oauth-server/README.md`](oauth-server/README.md) voor complete stap-voor-stap instructies.**
+**Op GitHub Pages:**
+1. Volg eerst de [OAuth setup](oauth-server/README.md)
+2. Ga naar `https://tstacntlol.github.io/testclaude/admin`
+3. Log in met GitHub
 
 ### Wat kun je beheren?
 

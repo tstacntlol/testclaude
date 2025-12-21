@@ -1,12 +1,8 @@
 backend:
-  name: github
-  repo: tstacntlol/testclaude
+  name: git-gateway
   branch: claude/hobby-finder-website-YlMk0
-  # Using a public OAuth gateway for GitHub Pages authentication
-  base_url: https://decapcms-oauth.netlify.app
-  auth_endpoint: /auth
-  # For production, consider setting up your own GitHub OAuth App
-  # See instructions in README.md
+  # Netlify Identity handles authentication automatically
+  # No OAuth server needed!
 
 publish_mode: editorial_workflow
 

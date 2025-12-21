@@ -6,6 +6,8 @@
     <meta name="description" content="Hobby Finder - Helping kids with disabilities discover their perfect hobby">
     <title>Hobby Finder - Vind jouw hobby!</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Netlify Identity Widget for CMS authentication -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
     <!-- Header with Navigation -->
@@ -234,5 +236,18 @@
     </footer>
 
     <script src="script.js"></script>
+
+    <!-- Netlify Identity redirect handling -->
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
 </body>
 </html>
