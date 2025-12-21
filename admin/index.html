@@ -6,10 +6,7 @@
   <title>Hobby Finder - Content Beheer</title>
 
   <!-- Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-
-  <!-- Identity Widget for GitHub Authentication -->
-  <script src="https://unpkg.com/netlify-identity-widget@^1.9.2/build/netlify-identity-widget.js"></script>
+  <script src="https://unpkg.com/decap-cms@^3.1.3/dist/decap-cms.js"></script>
 
   <style>
     body {
@@ -23,19 +20,10 @@
   <!-- Decap CMS will inject its interface here -->
 
   <script>
-    // Initialize Netlify Identity (needed for GitHub auth)
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
+    // Custom preview styles
+    if (window.CMS) {
+      CMS.registerPreviewStyle("/styles.css");
     }
-
-    // Custom preview styles (optional)
-    CMS.registerPreviewStyle("/styles.css");
   </script>
 </body>
 </html>

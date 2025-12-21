@@ -2,10 +2,12 @@ backend:
   name: github
   repo: tstacntlol/testclaude
   branch: claude/hobby-finder-website-YlMk0
-  base_url: https://api.netlify.com
-  auth_endpoint: auth
+  # Using a public OAuth gateway for GitHub Pages authentication
+  base_url: https://decapcms-oauth.netlify.app
+  auth_endpoint: /auth
+  # For production, consider setting up your own GitHub OAuth App
+  # See instructions in README.md
 
-# When using GitHub Pages, we need to use the editorial workflow
 publish_mode: editorial_workflow
 
 # Media files will be stored in the repository

@@ -45,9 +45,32 @@ Deze website gebruikt **Decap CMS** (voorheen Netlify CMS) voor eenvoudig conten
 
 ### Toegang tot het CMS
 
-1. Navigeer naar: `https://jouw-website.github.io/admin` (of `/admin` op je domein)
-2. Log in met je GitHub account
-3. Authenticeer de applicatie
+1. Navigeer naar: `https://tstacntlol.github.io/testclaude/admin`
+2. Klik op "Login with GitHub"
+3. Authenticeer de applicatie met je GitHub account
+4. Geef toegang tot de repository
+
+**⚠️ Belangrijke opmerking over authenticatie:**
+
+De CMS gebruikt momenteel een **publieke OAuth gateway** (`decapcms-oauth.netlify.app`) voor authenticatie. Dit werkt prima voor testen en kleine projecten.
+
+Voor productie wordt aanbevolen om je eigen GitHub OAuth App te configureren:
+
+<details>
+<summary>📖 Klik hier voor instructies om je eigen OAuth App te maken (optioneel, voor productie)</summary>
+
+1. Ga naar [GitHub Developer Settings](https://github.com/settings/developers)
+2. Klik op "New OAuth App"
+3. Vul in:
+   - **Application name**: Hobby Finder CMS
+   - **Homepage URL**: `https://tstacntlol.github.io/testclaude`
+   - **Authorization callback URL**: `https://jouw-oauth-server.com/callback`
+4. Kopieer de Client ID en Client Secret
+5. Deploy een OAuth server (bijvoorbeeld met Vercel of Netlify)
+6. Update `admin/config.yml` met je eigen `base_url` en `auth_endpoint`
+
+Voor meer info: [Decap CMS Authentication Documentation](https://decapcms.org/docs/authentication-backends/)
+</details>
 
 ### Wat kun je beheren?
 
