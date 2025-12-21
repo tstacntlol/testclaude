@@ -1,0 +1,17 @@
+{
+  "name": "decap-cms-oauth-server",
+  "version": "1.0.0",
+  "description": "OAuth server for Decap CMS GitHub authentication",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "keywords": [
+    "oauth",
+    "decap",
+    "cms",
+    "github"
+  ],
+  "author": "",
+  "license": "MIT"
+}

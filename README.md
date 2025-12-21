@@ -50,27 +50,25 @@ Deze website gebruikt **Decap CMS** (voorheen Netlify CMS) voor eenvoudig conten
 3. Authenticeer de applicatie met je GitHub account
 4. Geef toegang tot de repository
 
-**⚠️ Belangrijke opmerking over authenticatie:**
+**⚠️ Belangrijk: OAuth Setup Vereist**
 
-De CMS gebruikt momenteel een **publieke OAuth gateway** (`decapcms-oauth.netlify.app`) voor authenticatie. Dit werkt prima voor testen en kleine projecten.
+Om de CMS te gebruiken moet je eerst een **OAuth server** opzetten voor GitHub authenticatie. Dit is nodig omdat GitHub Pages geen backend heeft voor authenticatie.
 
-Voor productie wordt aanbevolen om je eigen GitHub OAuth App te configureren:
+### 🚀 OAuth Server Setup (Eenmalig, ~10 minuten)
 
-<details>
-<summary>📖 Klik hier voor instructies om je eigen OAuth App te maken (optioneel, voor productie)</summary>
+We hebben een kant-en-klare OAuth server voor je gemaakt in de `oauth-server/` map. Volg deze stappen:
 
-1. Ga naar [GitHub Developer Settings](https://github.com/settings/developers)
-2. Klik op "New OAuth App"
-3. Vul in:
-   - **Application name**: Hobby Finder CMS
-   - **Homepage URL**: `https://tstacntlol.github.io/testclaude`
-   - **Authorization callback URL**: `https://jouw-oauth-server.com/callback`
-4. Kopieer de Client ID en Client Secret
-5. Deploy een OAuth server (bijvoorbeeld met Vercel of Netlify)
-6. Update `admin/config.yml` met je eigen `base_url` en `auth_endpoint`
+1. **Lees de instructies** in [`oauth-server/README.md`](oauth-server/README.md)
+2. **Deploy naar Vercel** (gratis) - volg de gedetailleerde stappen
+3. **Update de CMS config** met jouw Vercel URL
 
-Voor meer info: [Decap CMS Authentication Documentation](https://decapcms.org/docs/authentication-backends/)
-</details>
+**Korte samenvatting:**
+- Maak een GitHub OAuth App aan
+- Deploy de `oauth-server` folder naar Vercel
+- Update `admin/config.yml` met jouw Vercel URL
+- Klaar! De CMS werkt nu volledig
+
+📖 **Zie [`oauth-server/README.md`](oauth-server/README.md) voor complete stap-voor-stap instructies.**
 
 ### Wat kun je beheren?
 
