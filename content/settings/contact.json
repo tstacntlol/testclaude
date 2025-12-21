@@ -1,0 +1,17 @@
+{
+  "email": "info@hobbyfinder.be",
+  "phone": "+32 2 345 67 89",
+  "street": "Hobbystraat 123",
+  "city": "Brussel",
+  "postalCode": "1000",
+  "country": "België",
+  "hours": {
+    "weekdays": "Maandag - Vrijdag: 9:00 - 17:00",
+    "weekend": "Weekend: Op afspraak"
+  },
+  "social": {
+    "facebook": "https://facebook.com/hobbyfinder",
+    "instagram": "https://instagram.com/hobbyfinder",
+    "linkedin": "https://linkedin.com/company/hobbyfinder"
+  }
+}

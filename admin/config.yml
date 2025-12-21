@@ -1,0 +1,82 @@
+backend:
+  name: github
+  repo: tstacntlol/testclaude
+  branch: claude/hobby-finder-website-YlMk0
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+# When using GitHub Pages, we need to use the editorial workflow
+publish_mode: editorial_workflow
+
+# Media files will be stored in the repository
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+# Collections define the structure of the content
+collections:
+  # Events Collection
+  - name: "events"
+    label: "Evenementen"
+    folder: "content/events"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Titel", name: "title", widget: "string"}
+      - {label: "Datum", name: "date", widget: "datetime"}
+      - {label: "Locatie", name: "location", widget: "string"}
+      - {label: "Beschrijving", name: "description", widget: "text"}
+      - {label: "Categorie", name: "category", widget: "select", options: ["Creatieve Kunsten", "Muziek & Dans", "Aangepaste Sport", "Lezen & Verhalen", "Theater & Drama", "Wetenschap & Technologie"]}
+      - {label: "Max Deelnemers", name: "maxParticipants", widget: "number", required: false}
+      - {label: "Leeftijdsgroep", name: "ageGroup", widget: "string", required: false}
+      - {label: "Afbeelding", name: "image", widget: "image", required: false}
+      - {label: "Actief", name: "active", widget: "boolean", default: true}
+
+  # Activities (for updating the main activities section)
+  - name: "activities"
+    label: "Activiteiten"
+    folder: "content/activities"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Titel", name: "title", widget: "string"}
+      - {label: "Icon", name: "icon", widget: "string", hint: "Emoji icoon (bijv. 🎨, 🎵, ⚽)"}
+      - {label: "Beschrijving", name: "description", widget: "text"}
+      - {label: "Volgorde", name: "order", widget: "number", default: 1}
+      - {label: "Actief", name: "active", widget: "boolean", default: true}
+
+  # Site Settings
+  - name: "settings"
+    label: "Website Instellingen"
+    files:
+      - name: "contact"
+        label: "Contact Informatie"
+        file: "content/settings/contact.json"
+        fields:
+          - {label: "Email", name: "email", widget: "string"}
+          - {label: "Telefoon", name: "phone", widget: "string"}
+          - {label: "Adres - Straat", name: "street", widget: "string"}
+          - {label: "Adres - Stad", name: "city", widget: "string"}
+          - {label: "Adres - Postcode", name: "postalCode", widget: "string"}
+          - {label: "Adres - Land", name: "country", widget: "string", default: "België"}
+          - label: "Openingsuren"
+            name: "hours"
+            widget: "object"
+            fields:
+              - {label: "Weekdagen", name: "weekdays", widget: "string"}
+              - {label: "Weekend", name: "weekend", widget: "string"}
+          - label: "Social Media"
+            name: "social"
+            widget: "object"
+            fields:
+              - {label: "Facebook", name: "facebook", widget: "string", required: false}
+              - {label: "Instagram", name: "instagram", widget: "string", required: false}
+              - {label: "LinkedIn", name: "linkedin", widget: "string", required: false}
+
+      - name: "about"
+        label: "Over Ons"
+        file: "content/settings/about.json"
+        fields:
+          - {label: "Introductie", name: "intro", widget: "text"}
+          - {label: "Tweede Paragraaf", name: "paragraph2", widget: "text"}
+          - {label: "Missie Titel", name: "missionTitle", widget: "string", default: "Onze Missie"}
+          - {label: "Missie Tekst", name: "missionText", widget: "text"}

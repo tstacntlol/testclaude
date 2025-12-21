@@ -78,8 +78,132 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
+// Parse YAML frontmatter from markdown
+function parseFrontmatter(content) {
+    const frontmatterRegex = /^---\n([\s\S]*?)\n---/;
+    const match = content.match(frontmatterRegex);
+
+    if (!match) return null;
+
+    const frontmatter = {};
+    const lines = match[1].split('\n');
+
+    lines.forEach(line => {
+        const colonIndex = line.indexOf(':');
+        if (colonIndex > -1) {
+            const key = line.substring(0, colonIndex).trim();
+            let value = line.substring(colonIndex + 1).trim();
+
+            // Remove quotes
+            if (value.startsWith('"') && value.endsWith('"')) {
+                value = value.slice(1, -1);
+            }
+
+            // Convert boolean strings
+            if (value === 'true') value = true;
+            if (value === 'false') value = false;
+
+            frontmatter[key] = value;
+        }
+    });
+
+    return frontmatter;
+}
+
+// Load events from CMS
+async function loadEvents() {
+    const eventsContainer = document.getElementById('events-container');
+    const noEventsMessage = document.getElementById('no-events-message');
+
+    try {
+        // List of event files
+        const eventFiles = [
+            'content/events/2024-12-28-schilderworkshop.md',
+            'content/events/2025-01-05-muziektherapie.md',
+            'content/events/2025-01-12-aangepaste-sport.md'
+        ];
+
+        const events = [];
+
+        // Load each event file
+        for (const file of eventFiles) {
+            try {
+                const response = await fetch(file);
+                if (response.ok) {
+                    const content = await response.text();
+                    const eventData = parseFrontmatter(content);
+
+                    if (eventData && eventData.active !== false) {
+                        eventData.date = new Date(eventData.date);
+                        events.push(eventData);
+                    }
+                }
+            } catch (err) {
+                console.log('Could not load event:', file);
+            }
+        }
+
+        // Sort events by date
+        events.sort((a, b) => a.date - b.date);
+
+        // Filter future events
+        const now = new Date();
+        const futureEvents = events.filter(event => event.date >= now);
+
+        // Display events
+        if (futureEvents.length > 0) {
+            eventsContainer.innerHTML = futureEvents.map(event => {
+                const dateStr = event.date.toLocaleDateString('nl-BE', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+
+                const timeStr = event.date.toLocaleTimeString('nl-BE', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                return `
+                    <div class="event-card">
+                        <div class="event-date">
+                            <div class="event-day">${event.date.getDate()}</div>
+                            <div class="event-month">${event.date.toLocaleDateString('nl-BE', { month: 'short' })}</div>
+                        </div>
+                        <div class="event-content">
+                            <h3>${event.title}</h3>
+                            <p class="event-meta">
+                                <strong>📅 ${dateStr}</strong><br>
+                                <strong>🕐 ${timeStr}</strong><br>
+                                <strong>📍 ${event.location}</strong>
+                            </p>
+                            <p class="event-description">${event.description}</p>
+                            ${event.category ? `<span class="event-category">${event.category}</span>` : ''}
+                            ${event.ageGroup ? `<span class="event-age">${event.ageGroup}</span>` : ''}
+                            ${event.maxParticipants ? `<p class="event-participants">Max ${event.maxParticipants} deelnemers</p>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            noEventsMessage.style.display = 'none';
+        } else {
+            eventsContainer.innerHTML = '';
+            noEventsMessage.style.display = 'block';
+        }
+
+    } catch (error) {
+        console.error('Error loading events:', error);
+        eventsContainer.innerHTML = '<p>Er is een fout opgetreden bij het laden van evenementen.</p>';
+    }
+}
+
 // Add focus indicator for better keyboard navigation
 document.addEventListener('DOMContentLoaded', function() {
+    // Load events
+    loadEvents();
+
     // Add skip to content link for screen readers
     const skipLink = document.createElement('a');
     skipLink.href = '#about';

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hobby Finder - Content Beheer</title>
+
+  <!-- Decap CMS -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <!-- Identity Widget for GitHub Authentication -->
+  <script src="https://unpkg.com/netlify-identity-widget@^1.9.2/build/netlify-identity-widget.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <!-- Decap CMS will inject its interface here -->
+
+  <script>
+    // Initialize Netlify Identity (needed for GitHub auth)
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+
+    // Custom preview styles (optional)
+    CMS.registerPreviewStyle("/styles.css");
+  </script>
+</body>
+</html>
