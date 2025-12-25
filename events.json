@@ -1,0 +1,35 @@
+[
+  {
+    "title": "Schilderworkshop voor Kinderen",
+    "date": "2024-12-28T14:00:00.000Z",
+    "location": "Hobbystraat 123, 1000 Brussel",
+    "description": "Kom samen schilderen en je creativiteit ontdekken! Deze workshop is speciaal aangepast voor kinderen met verschillende mogelijkheden. We werken met aangepaste materialen en een ervaren begeleidingsteam.",
+    "category": "Creatieve Kunsten",
+    "maxParticipants": 12,
+    "ageGroup": "6-12 jaar",
+    "active": 1,
+    "_filename": "2024-12-28-schilderworkshop.md"
+  },
+  {
+    "title": "Muziektherapie Sessie",
+    "date": "2025-01-05T10:30:00.000Z",
+    "location": "Hobbystraat 123, 1000 Brussel",
+    "description": "Ontdek de kracht van muziek! In deze sessie maken we samen muziek met verschillende instrumenten. Geen ervaring nodig, alleen plezier en expressie.",
+    "category": "Muziek & Dans",
+    "maxParticipants": 8,
+    "ageGroup": "8-14 jaar",
+    "active": 1,
+    "_filename": "2025-01-05-muziektherapie.md"
+  },
+  {
+    "title": "Aangepaste Sportdag",
+    "date": "2025-01-12T13:00:00.000Z",
+    "location": "Sporthal De Hobby, Brussel",
+    "description": "Een middag vol beweging en plezier! We organiseren verschillende aangepaste sportactiviteiten waarbij elk kind op zijn of haar niveau kan deelnemen. Van zitvolleybal tot aangepast basketbal.",
+    "category": "Aangepaste Sport",
+    "maxParticipants": 20,
+    "ageGroup": "7-16 jaar",
+    "active": 1,
+    "_filename": "2025-01-12-aangepaste-sport.md"
+  }
+]

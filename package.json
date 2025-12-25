@@ -1,0 +1,16 @@
+{
+  "name": "hobby-finder-website",
+  "version": "1.0.0",
+  "description": "Accessible website for helping kids with disabilities find their hobbies",
+  "scripts": {
+    "build": "node build-events.js"
+  },
+  "keywords": [
+    "accessibility",
+    "cms",
+    "decap",
+    "netlify"
+  ],
+  "author": "",
+  "license": "MIT"
+}

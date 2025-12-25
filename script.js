@@ -116,32 +116,24 @@ async function loadEvents() {
     const noEventsMessage = document.getElementById('no-events-message');
 
     try {
-        // List of event files
-        const eventFiles = [
-            'content/events/2024-12-28-schilderworkshop.md',
-            'content/events/2025-01-05-muziektherapie.md',
-            'content/events/2025-01-12-aangepaste-sport.md'
-        ];
+        // Load events from the generated manifest file
+        const response = await fetch('events.json');
 
-        const events = [];
-
-        // Load each event file
-        for (const file of eventFiles) {
-            try {
-                const response = await fetch(file);
-                if (response.ok) {
-                    const content = await response.text();
-                    const eventData = parseFrontmatter(content);
-
-                    if (eventData && eventData.active !== false) {
-                        eventData.date = new Date(eventData.date);
-                        events.push(eventData);
-                    }
-                }
-            } catch (err) {
-                console.log('Could not load event:', file);
-            }
+        if (!response.ok) {
+            console.error('Could not load events.json');
+            eventsContainer.innerHTML = '<p>Kon evenementen niet laden.</p>';
+            return;
         }
+
+        const allEvents = await response.json();
+
+        // Convert date strings to Date objects and filter active events
+        const events = allEvents
+            .filter(event => event.active !== false)
+            .map(event => ({
+                ...event,
+                date: new Date(event.date)
+            }));
 
         // Sort events by date
         events.sort((a, b) => a.date - b.date);

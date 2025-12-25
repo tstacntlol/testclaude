@@ -1,5 +1,6 @@
 [build]
-  # No build command needed for static site
+  # Build command generates events manifest from CMS content
+  command = "node build-events.js"
   publish = "."
 
 [build.environment]
