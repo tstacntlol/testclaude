@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug - JSON Files Check</title>
+</head>
+<body>
+    <h1>JSON Files Debug</h1>
+    <div id="status"></div>
+
+    <script>
+        async function checkFiles() {
+            const status = document.getElementById('status');
+            const files = ['events.json', 'activities.json'];
+
+            for (const file of files) {
+                try {
+                    const response = await fetch(file);
+                    const data = await response.json();
+                    status.innerHTML += `<p>✅ ${file}: Found ${data.length} items</p>`;
+                } catch (error) {
+                    status.innerHTML += `<p>❌ ${file}: ${error.message}</p>`;
+                }
+            }
+        }
+
+        checkFiles();
+    </script>
+</body>
+</html>
