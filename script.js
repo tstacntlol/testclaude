@@ -205,11 +205,13 @@ async function loadActivities() {
         const response = await fetch('activities.json');
 
         if (!response.ok) {
-            console.error('Could not load activities.json');
+            console.error('Could not load activities.json - Status:', response.status);
+            activitiesContainer.innerHTML = '<p>Kon activiteiten niet laden. Probeer de pagina te verversen.</p>';
             return;
         }
 
         const allActivities = await response.json();
+        console.log('Loaded activities:', allActivities);
 
         // Filter active activities
         const activities = allActivities.filter(activity => activity.active !== false);
@@ -234,6 +236,7 @@ async function loadActivities() {
 
     } catch (error) {
         console.error('Error loading activities:', error);
+        activitiesContainer.innerHTML = '<p>Fout bij laden van activiteiten: ' + error.message + '</p>';
     }
 }
 
