@@ -22,14 +22,24 @@
     "_filename": "2025-01-05-muziektherapie.md"
   },
   {
-    "title": "Aangepaste Sportdag",
-    "date": "2025-01-12T13:00:00.000Z",
-    "location": "Sporthal De Hobby, Brussel",
-    "description": "Een middag vol beweging en plezier! We organiseren verschillende aangepaste sportactiviteiten waarbij elk kind op zijn of haar niveau kan deelnemen. Van zitvolleybal tot aangepast basketbal.",
-    "category": "Aangepaste Sport",
-    "maxParticipants": 20,
-    "ageGroup": "7-16 jaar",
+    "title": "test2",
+    "date": "2025-12-25T11:50:00.000+01:00",
+    "location": "LOLOLOl",
+    "description": "vnoeirbvoebvreov",
+    "category": "Muziek & Dans",
     "active": 1,
-    "_filename": "2025-01-12-aangepaste-sport.md"
+    "_filename": "2025-12-25-test2.md"
+  },
+  {
+    "title": "Test evenement",
+    "date": "2026-01-08T14:00:00.000+01:00",
+    "location": "Brussel",
+    "description": "Dit is een test evenement, yipeeee het werkt hopelijk :)",
+    "category": "Wetenschap & Technologie",
+    "maxParticipants": 69,
+    "ageGroup": "10-18",
+    "image": "/images/uploads/evenement.jpg",
+    "active": 1,
+    "_filename": "2025-12-25-test-evenement.md"
   }
 ]

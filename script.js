@@ -191,9 +191,56 @@ async function loadEvents() {
     }
 }
 
+// Load activities from CMS
+async function loadActivities() {
+    const activitiesContainer = document.querySelector('.activities-grid');
+
+    if (!activitiesContainer) {
+        console.error('Activities container not found');
+        return;
+    }
+
+    try {
+        // Load activities from the generated manifest file
+        const response = await fetch('activities.json');
+
+        if (!response.ok) {
+            console.error('Could not load activities.json');
+            return;
+        }
+
+        const allActivities = await response.json();
+
+        // Filter active activities
+        const activities = allActivities.filter(activity => activity.active !== false);
+
+        // Sort by order (already sorted in build script, but just to be safe)
+        activities.sort((a, b) => (a.order || 999) - (b.order || 999));
+
+        // Display activities
+        if (activities.length > 0) {
+            activitiesContainer.innerHTML = activities.map(activity => {
+                return `
+                    <div class="activity-card">
+                        <div class="activity-icon">${activity.icon || '❓'}</div>
+                        <h3>${activity.title}</h3>
+                        <p>${activity.description}</p>
+                    </div>
+                `;
+            }).join('');
+        } else {
+            activitiesContainer.innerHTML = '<p>Geen activiteiten beschikbaar.</p>';
+        }
+
+    } catch (error) {
+        console.error('Error loading activities:', error);
+    }
+}
+
 // Add focus indicator for better keyboard navigation
 document.addEventListener('DOMContentLoaded', function() {
-    // Load events
+    // Load activities and events
+    loadActivities();
     loadEvents();
 
     // Add skip to content link for screen readers
