@@ -1,45 +1,22 @@
 [
   {
-    "title": "Schilderworkshop voor Kinderen",
-    "date": "2024-12-28T14:00:00.000Z",
-    "location": "Hobbystraat 123, 1000 Brussel",
-    "description": "Kom samen schilderen en je creativiteit ontdekken! Deze workshop is speciaal aangepast voor kinderen met verschillende mogelijkheden. We werken met aangepaste materialen en een ervaren begeleidingsteam.",
+    "title": "event test 3",
+    "date": "2025-12-27T11:57:00.000+01:00",
+    "location": "iigigu",
+    "description": "ugiugugi",
+    "category": "Muziek & Dans",
+    "active": 1,
+    "_filename": "2025-12-25-event-test-3.md"
+  },
+  {
+    "title": "this is a test LOL",
+    "date": "2025-12-30T16:18:00.000+01:00",
+    "location": "joe mama",
+    "description": "hbeofizaezf",
     "category": "Creatieve Kunsten",
-    "maxParticipants": 12,
-    "ageGroup": "6-12 jaar",
+    "maxParticipants": 100,
+    "ageGroup": "15 tot 18 jaar",
     "active": 1,
-    "_filename": "2024-12-28-schilderworkshop.md"
-  },
-  {
-    "title": "Muziektherapie Sessie",
-    "date": "2025-01-05T10:30:00.000Z",
-    "location": "Hobbystraat 123, 1000 Brussel",
-    "description": "Ontdek de kracht van muziek! In deze sessie maken we samen muziek met verschillende instrumenten. Geen ervaring nodig, alleen plezier en expressie.",
-    "category": "Muziek & Dans",
-    "maxParticipants": 8,
-    "ageGroup": "8-14 jaar",
-    "active": 1,
-    "_filename": "2025-01-05-muziektherapie.md"
-  },
-  {
-    "title": "test2",
-    "date": "2025-12-25T11:50:00.000+01:00",
-    "location": "LOLOLOl",
-    "description": "vnoeirbvoebvreov",
-    "category": "Muziek & Dans",
-    "active": 1,
-    "_filename": "2025-12-25-test2.md"
-  },
-  {
-    "title": "Test evenement",
-    "date": "2026-01-08T14:00:00.000+01:00",
-    "location": "Brussel",
-    "description": "Dit is een test evenement, yipeeee het werkt hopelijk :)",
-    "category": "Wetenschap & Technologie",
-    "maxParticipants": 69,
-    "ageGroup": "10-18",
-    "image": "/images/uploads/evenement.jpg",
-    "active": 1,
-    "_filename": "2025-12-25-test-evenement.md"
+    "_filename": "2025-12-25-this-is-a-test-lol.md"
   }
 ]

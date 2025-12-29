@@ -16,6 +16,14 @@
     "_filename": "test-activiteit.md"
   },
   {
+    "title": "Extra activiteit speciaal voor Seppe",
+    "icon": "⚽",
+    "description": "Balletjes",
+    "order": 2,
+    "active": 1,
+    "_filename": "extra-activiteit-speciaal-voor-seppe.md"
+  },
+  {
     "title": "Muziek & Dans",
     "icon": "🎵",
     "description": "Muziektherapie, zingen, instrumenten bespelen en bewegingsactiviteiten op muziek.",
