@@ -110,13 +110,48 @@ function parseFrontmatter(content) {
     return frontmatter;
 }
 
-// Load events from CMS
+// Helper function to render an event card
+function renderEventCard(event) {
+    const dateStr = event.date.toLocaleDateString('nl-BE', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+
+    const timeStr = event.date.toLocaleTimeString('nl-BE', {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+
+    return `
+        <div class="event-card">
+            <div class="event-date">
+                <div class="event-day">${event.date.getDate()}</div>
+                <div class="event-month">${event.date.toLocaleDateString('nl-BE', { month: 'short' })}</div>
+            </div>
+            <div class="event-content">
+                <h3>${event.title}</h3>
+                <p class="event-meta">
+                    <strong>📅 ${dateStr}</strong><br>
+                    <strong>🕐 ${timeStr}</strong><br>
+                    <strong>📍 ${event.location}</strong>
+                </p>
+                <p class="event-description">${event.description}</p>
+                ${event.category ? `<span class="event-category">${event.category}</span>` : ''}
+                ${event.ageGroup ? `<span class="event-age">${event.ageGroup}</span>` : ''}
+                ${event.maxParticipants ? `<p class="event-participants">Max ${event.maxParticipants} deelnemers</p>` : ''}
+            </div>
+        </div>
+    `;
+}
+
+// Load future events from CMS
 async function loadEvents() {
     const eventsContainer = document.getElementById('events-container');
     const noEventsMessage = document.getElementById('no-events-message');
 
     try {
-        // Load events from the generated manifest file
         const response = await fetch('events.json');
 
         if (!response.ok) {
@@ -135,50 +170,16 @@ async function loadEvents() {
                 date: new Date(event.date)
             }));
 
-        // Sort events by date
-        events.sort((a, b) => a.date - b.date);
-
         // Filter future events
         const now = new Date();
         const futureEvents = events.filter(event => event.date >= now);
 
+        // Sort by date (ascending - soonest first)
+        futureEvents.sort((a, b) => a.date - b.date);
+
         // Display events
         if (futureEvents.length > 0) {
-            eventsContainer.innerHTML = futureEvents.map(event => {
-                const dateStr = event.date.toLocaleDateString('nl-BE', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-
-                const timeStr = event.date.toLocaleTimeString('nl-BE', {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-
-                return `
-                    <div class="event-card">
-                        <div class="event-date">
-                            <div class="event-day">${event.date.getDate()}</div>
-                            <div class="event-month">${event.date.toLocaleDateString('nl-BE', { month: 'short' })}</div>
-                        </div>
-                        <div class="event-content">
-                            <h3>${event.title}</h3>
-                            <p class="event-meta">
-                                <strong>📅 ${dateStr}</strong><br>
-                                <strong>🕐 ${timeStr}</strong><br>
-                                <strong>📍 ${event.location}</strong>
-                            </p>
-                            <p class="event-description">${event.description}</p>
-                            ${event.category ? `<span class="event-category">${event.category}</span>` : ''}
-                            ${event.ageGroup ? `<span class="event-age">${event.ageGroup}</span>` : ''}
-                            ${event.maxParticipants ? `<p class="event-participants">Max ${event.maxParticipants} deelnemers</p>` : ''}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
+            eventsContainer.innerHTML = futureEvents.map(renderEventCard).join('');
             noEventsMessage.style.display = 'none';
         } else {
             eventsContainer.innerHTML = '';
@@ -188,6 +189,55 @@ async function loadEvents() {
     } catch (error) {
         console.error('Error loading events:', error);
         eventsContainer.innerHTML = '<p>Er is een fout opgetreden bij het laden van evenementen.</p>';
+    }
+}
+
+// Load past events from CMS
+async function loadPastEvents() {
+    const pastEventsContainer = document.getElementById('past-events-container');
+    const noPastEventsMessage = document.getElementById('no-past-events-message');
+
+    if (!pastEventsContainer) return;
+
+    try {
+        const response = await fetch('events.json');
+
+        if (!response.ok) {
+            console.error('Could not load events.json');
+            pastEventsContainer.innerHTML = '<p>Kon evenementen niet laden.</p>';
+            return;
+        }
+
+        const allEvents = await response.json();
+
+        // Convert date strings to Date objects and filter active events
+        const events = allEvents
+            .filter(event => event.active !== false)
+            .map(event => ({
+                ...event,
+                date: new Date(event.date)
+            }));
+
+        // Filter past events
+        const now = new Date();
+        const pastEvents = events.filter(event => event.date < now);
+
+        // Sort by date (descending - most recent first)
+        pastEvents.sort((a, b) => b.date - a.date);
+
+        // Display events (limit to 6 most recent)
+        if (pastEvents.length > 0) {
+            const recentPast = pastEvents.slice(0, 6);
+            pastEventsContainer.innerHTML = recentPast.map(renderEventCard).join('');
+            noPastEventsMessage.style.display = 'none';
+        } else {
+            pastEventsContainer.innerHTML = '';
+            noPastEventsMessage.style.display = 'block';
+        }
+
+    } catch (error) {
+        console.error('Error loading past events:', error);
+        pastEventsContainer.innerHTML = '<p>Er is een fout opgetreden bij het laden van evenementen.</p>';
     }
 }
 
@@ -245,6 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load activities and events
     loadActivities();
     loadEvents();
+    loadPastEvents();
 
     // Add skip to content link for screen readers
     const skipLink = document.createElement('a');
