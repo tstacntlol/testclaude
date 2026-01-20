@@ -345,6 +345,27 @@ a:focus {
     gap: 3rem;
 }
 
+.contact-content-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-info-centered {
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+}
+
+.contact-info-centered h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.contact-info-centered > p {
+    margin-bottom: 2rem;
+}
+
 .contact-info h3,
 .contact-form h3 {
     color: var(--primary-color);
@@ -750,9 +771,9 @@ a:focus {
 
 .pdf-modal-content {
     position: relative;
-    width: 90%;
-    max-width: 1200px;
-    height: 90vh;
+    width: 95%;
+    max-width: 1400px;
+    height: 95vh;
     background-color: var(--bg-light);
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
@@ -764,15 +785,15 @@ a:focus {
 
 .pdf-modal-close {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: white;
     border: none;
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    font-size: 2rem;
+    font-size: 1.5rem;
     line-height: 1;
     cursor: pointer;
     z-index: 10001;
@@ -785,26 +806,24 @@ a:focus {
     box-shadow: 0 4px 12px rgba(216, 35, 42, 0.6);
 }
 
-.pdf-modal-header {
-    padding: 1.5rem 2rem;
-    background-color: var(--bg-white);
-    border-bottom: 2px solid var(--border-color);
-}
-
-.pdf-modal-header h3 {
-    margin: 0;
-    color: var(--primary-color);
-    font-size: 1.5rem;
-}
-
 .pdf-modal-controls {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
-    padding: 1.5rem;
+    gap: 1.5rem;
+    padding: 0.75rem 1rem;
     background-color: var(--bg-white);
-    border-bottom: 2px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.pdf-nav-btn-small {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.95rem !important;
+}
+
+.pdf-page-info-small {
+    font-size: 0.95rem !important;
+    min-width: 150px !important;
 }
 
 .pdf-modal-canvas-container {
@@ -813,7 +832,7 @@ a:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 1rem;
     background-color: #e9ecef;
 }
 
@@ -826,11 +845,21 @@ a:focus {
     border-radius: 8px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     background-color: white;
-    cursor: default;
+    cursor: zoom-in;
+    transition: all 0.3s ease;
 }
 
 .pdf-canvas-modal:hover {
-    transform: none;
+    box-shadow: 0 8px 24px rgba(216, 35, 42, 0.3);
+    border-color: var(--primary-color);
+}
+
+.pdf-canvas-modal.zoomed {
+    cursor: zoom-out;
+    max-width: none;
+    max-height: none;
+    width: auto;
+    height: auto;
 }
 
 /* Submit Button Styles - Match Vinc Housestyle */

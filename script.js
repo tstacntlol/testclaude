@@ -147,12 +147,12 @@ class ModalPDFViewer {
         this.nextBtn = document.getElementById('modal-next');
         this.closeBtn = document.querySelector('.pdf-modal-close');
         this.overlay = document.querySelector('.pdf-modal-overlay');
-        this.titleEl = document.getElementById('pdf-modal-title');
 
         this.pdfDoc = null;
         this.pageNum = 1;
         this.pageRendering = false;
         this.pageNumPending = null;
+        this.isZoomed = false;
 
         // Bind event listeners
         if (this.prevBtn && this.nextBtn) {
@@ -166,6 +166,11 @@ class ModalPDFViewer {
 
         if (this.overlay) {
             this.overlay.addEventListener('click', () => this.close());
+        }
+
+        // Click canvas to zoom
+        if (this.canvas) {
+            this.canvas.addEventListener('click', () => this.toggleZoom());
         }
 
         // Keyboard navigation
@@ -182,10 +187,11 @@ class ModalPDFViewer {
         });
     }
 
-    open(pdfDoc, title) {
+    open(pdfDoc) {
         this.pdfDoc = pdfDoc;
         this.pageNum = 1;
-        this.titleEl.textContent = title;
+        this.isZoomed = false;
+        this.canvas.classList.remove('zoomed');
         this.pageCountSpan.textContent = pdfDoc.numPages;
         this.modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
@@ -195,6 +201,18 @@ class ModalPDFViewer {
     close() {
         this.modal.style.display = 'none';
         document.body.style.overflow = '';
+        this.isZoomed = false;
+        this.canvas.classList.remove('zoomed');
+    }
+
+    toggleZoom() {
+        this.isZoomed = !this.isZoomed;
+        if (this.isZoomed) {
+            this.canvas.classList.add('zoomed');
+        } else {
+            this.canvas.classList.remove('zoomed');
+        }
+        this.renderPage(this.pageNum);
     }
 
     renderPage(num) {
@@ -205,10 +223,15 @@ class ModalPDFViewer {
             const initialViewport = page.getViewport({ scale: 1.0 });
 
             // Calculate scale to fit within modal while maintaining aspect ratio
-            const maxHeight = window.innerHeight * 0.7;
-            const maxWidth = window.innerWidth * 0.8;
+            const maxHeight = window.innerHeight * 0.85;
+            const maxWidth = window.innerWidth * 0.9;
 
             let scale = Math.min(maxHeight / initialViewport.height, maxWidth / initialViewport.width);
+
+            // If zoomed, increase scale by 1.8x
+            if (this.isZoomed) {
+                scale = scale * 1.8;
+            }
 
             // Get final viewport with calculated scale
             const viewport = page.getViewport({ scale: scale });
@@ -282,11 +305,6 @@ const modalViewer = new ModalPDFViewer();
 // Load PDF configurations and initialize viewers
 async function initializePDFs() {
     const sections = ['programma', 'traject', 'over-ons'];
-    const sectionTitles = {
-        'programma': 'Programma',
-        'traject': 'Vrijetijds Traject Begeleiding',
-        'over-ons': 'Over Ons'
-    };
 
     for (const section of sections) {
         try {
@@ -302,7 +320,7 @@ async function initializePDFs() {
                     canvas.addEventListener('click', () => {
                         const viewer = viewers[section];
                         if (viewer.pdfDoc) {
-                            modalViewer.open(viewer.pdfDoc, sectionTitles[section]);
+                            modalViewer.open(viewer.pdfDoc);
                         }
                     });
                 }
@@ -364,57 +382,4 @@ async function loadContactInfo() {
 document.addEventListener('DOMContentLoaded', function() {
     initializePDFs();
     loadContactInfo();
-
-    // Handle contact form submission with Netlify Forms
-    const contactForm = document.getElementById('contact-form');
-    const formStatus = document.getElementById('form-status');
-
-    if (contactForm) {
-        contactForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            // Get form data
-            const formData = new FormData(contactForm);
-
-            // Show loading state
-            const submitBtn = contactForm.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Verzenden...';
-            submitBtn.disabled = true;
-
-            try {
-                // Submit to Netlify
-                const response = await fetch('/', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams(formData).toString()
-                });
-
-                if (response.ok) {
-                    // Success
-                    formStatus.textContent = 'Bedankt voor uw bericht! We nemen zo spoedig mogelijk contact met u op.';
-                    formStatus.className = 'form-status success';
-                    formStatus.style.display = 'block';
-                    contactForm.reset();
-                } else {
-                    throw new Error('Form submission failed');
-                }
-            } catch (error) {
-                // Error
-                formStatus.textContent = 'Er is een fout opgetreden. Probeer het opnieuw of neem direct contact met ons op via email of telefoon.';
-                formStatus.className = 'form-status error';
-                formStatus.style.display = 'block';
-                console.error('Form submission error:', error);
-            } finally {
-                // Reset button
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-
-                // Hide status message after 5 seconds
-                setTimeout(() => {
-                    formStatus.style.display = 'none';
-                }, 5000);
-            }
-        });
-    }
 });
