@@ -228,9 +228,9 @@ class ModalPDFViewer {
 
             let scale = Math.min(maxHeight / initialViewport.height, maxWidth / initialViewport.width);
 
-            // If zoomed, increase scale by 1.8x
+            // If zoomed, increase scale by 20%
             if (this.isZoomed) {
-                scale = scale * 1.8;
+                scale = scale * 1.2;
             }
 
             // Get final viewport with calculated scale
@@ -258,6 +258,15 @@ class ModalPDFViewer {
 
         this.pageNumSpan.textContent = num;
         this.updateButtons();
+
+        // Update button sizes when zoomed
+        if (this.isZoomed) {
+            this.prevBtn.style.transform = 'scale(0.8)';
+            this.nextBtn.style.transform = 'scale(0.8)';
+        } else {
+            this.prevBtn.style.transform = 'scale(1)';
+            this.nextBtn.style.transform = 'scale(1)';
+        }
     }
 
     queueRenderPage(num) {
