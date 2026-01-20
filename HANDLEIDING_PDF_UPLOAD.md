@@ -33,7 +33,7 @@ Klik op "Forgot password?" en volg de instructies in de e-mail die u ontvangt.
 ### Overzicht
 U kunt PDF's uploaden voor drie secties van uw website:
 - **Programma** - Het programma van Vinc vzw
-- **Vrijetijds Traject Begeleiding** - Informatie over trajectbegeleiding
+- **Vrijetijds-traject-begeleiding** - Informatie over trajectbegeleiding
 - **Over Ons** - Algemene informatie over de organisatie
 
 ### Stap-voor-Stap Instructies
@@ -42,7 +42,7 @@ U kunt PDF's uploaden voor drie secties van uw website:
 1. Klik in het linker menu op **"PDF Secties"**
 2. U ziet nu drie opties:
    - Programma
-   - Vrijetijds Traject Begeleiding
+   - Vrijetijds-traject-begeleiding
    - Over Ons
 
 #### STAP 2: Selecteer de Sectie
@@ -161,7 +161,7 @@ De website gebruikt een **Editorial Workflow** (redactionele workflow). Dit bete
 **Antwoord:** Na het publiceren duurt het 1-2 minuten voordat Netlify uw website herbouwt. Ververs uw browser om de wijzigingen te zien.
 
 ### ❓ Kan ik meerdere PDF's tegelijk uploaden?
-**Antwoord:** Ja! U kunt voor elke sectie (Programma, Vrijetijds Traject Begeleiding, Over Ons) een aparte PDF uploaden. Volg gewoon de stappen voor elke sectie afzonderlijk.
+**Antwoord:** Ja! U kunt voor elke sectie (Programma, Vrijetijds-traject-begeleiding, Over Ons) een aparte PDF uploaden. Volg gewoon de stappen voor elke sectie afzonderlijk.
 
 ### ❓ Wat is de maximale bestandsgrootte voor PDF's?
 **Antwoord:** We raden aan om PDF's kleiner dan **10 MB** te houden voor snellere laadtijden. Grotere bestanden werken wel, maar kunnen trager laden voor bezoekers.
