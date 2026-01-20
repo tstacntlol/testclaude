@@ -1,322 +1,221 @@
+// PDF.js worker configuration
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+// PDF Viewer class to handle individual PDF sections
+class PDFViewer {
+    constructor(sectionId) {
+        this.sectionId = sectionId;
+        this.canvas = document.getElementById(`${sectionId}-canvas`);
+        this.loadingDiv = document.querySelector(`#${sectionId}-viewer .pdf-loading`);
+        this.controls = document.querySelector(`#${sectionId}-viewer .pdf-controls`);
+        this.pageNumSpan = document.getElementById(`${sectionId}-page-num`);
+        this.pageCountSpan = document.getElementById(`${sectionId}-page-count`);
+        this.prevBtn = document.getElementById(`${sectionId}-prev`);
+        this.nextBtn = document.getElementById(`${sectionId}-next`);
+
+        this.pdfDoc = null;
+        this.pageNum = 1;
+        this.pageRendering = false;
+        this.pageNumPending = null;
+        this.scale = 1.5;
+
+        // Bind event listeners
+        if (this.prevBtn && this.nextBtn) {
+            this.prevBtn.addEventListener('click', () => this.onPrevPage());
+            this.nextBtn.addEventListener('click', () => this.onNextPage());
+        }
+    }
+
+    async loadPDF(url) {
+        if (!url) {
+            this.showMessage('Geen PDF beschikbaar');
+            return;
+        }
+
+        try {
+            const loadingTask = pdfjsLib.getDocument(url);
+            this.pdfDoc = await loadingTask.promise;
+
+            this.pageCountSpan.textContent = this.pdfDoc.numPages;
+
+            // Hide loading, show controls
+            this.loadingDiv.style.display = 'none';
+            this.controls.style.display = 'flex';
+            this.canvas.style.display = 'block';
+
+            // Render first page
+            this.renderPage(this.pageNum);
+        } catch (error) {
+            console.error(`Error loading PDF for ${this.sectionId}:`, error);
+            this.showMessage('Fout bij het laden van PDF');
+        }
+    }
+
+    renderPage(num) {
+        this.pageRendering = true;
+
+        this.pdfDoc.getPage(num).then(page => {
+            const viewport = page.getViewport({ scale: this.scale });
+            const context = this.canvas.getContext('2d');
+
+            this.canvas.height = viewport.height;
+            this.canvas.width = viewport.width;
+
+            const renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+
+            const renderTask = page.render(renderContext);
+
+            renderTask.promise.then(() => {
+                this.pageRendering = false;
+                if (this.pageNumPending !== null) {
+                    this.renderPage(this.pageNumPending);
+                    this.pageNumPending = null;
+                }
+            });
+        });
+
+        this.pageNumSpan.textContent = num;
+        this.updateButtons();
+    }
+
+    queueRenderPage(num) {
+        if (this.pageRendering) {
+            this.pageNumPending = num;
+        } else {
+            this.renderPage(num);
+        }
+    }
+
+    onPrevPage() {
+        if (this.pageNum <= 1) {
+            return;
+        }
+        this.pageNum--;
+        this.queueRenderPage(this.pageNum);
+    }
+
+    onNextPage() {
+        if (this.pageNum >= this.pdfDoc.numPages) {
+            return;
+        }
+        this.pageNum++;
+        this.queueRenderPage(this.pageNum);
+    }
+
+    updateButtons() {
+        if (this.prevBtn && this.nextBtn) {
+            this.prevBtn.disabled = (this.pageNum <= 1);
+            this.nextBtn.disabled = (this.pageNum >= this.pdfDoc.numPages);
+        }
+    }
+
+    showMessage(message) {
+        this.loadingDiv.innerHTML = `<p>${message}</p>`;
+        this.controls.style.display = 'none';
+        this.canvas.style.display = 'none';
+    }
+}
+
+// Initialize PDF viewers
+const viewers = {
+    programma: new PDFViewer('programma'),
+    traject: new PDFViewer('traject'),
+    'over-ons': new PDFViewer('over-ons')
+};
+
+// Load PDF configurations and initialize viewers
+async function initializePDFs() {
+    const sections = ['programma', 'traject', 'over-ons'];
+
+    for (const section of sections) {
+        try {
+            const response = await fetch(`content/pdfs/${section}.json`);
+            const data = await response.json();
+
+            if (data.active && data.pdf) {
+                viewers[section].loadPDF(data.pdf);
+            } else {
+                viewers[section].showMessage('Nog geen PDF geüpload');
+            }
+        } catch (error) {
+            console.error(`Error loading config for ${section}:`, error);
+            viewers[section].showMessage('Nog geen PDF geüpload');
+        }
+    }
+}
+
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-
         if (target) {
             target.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
             });
-
-            // Focus on the target section for accessibility
-            target.setAttribute('tabindex', '-1');
-            target.focus();
         }
     });
 });
 
-// Form submission handling
-const contactForm = document.querySelector('.contact-form form');
+// Load contact information dynamically
+async function loadContactInfo() {
+    try {
+        const response = await fetch('content/settings/contact.json');
+        const data = await response.json();
+
+        // Update address
+        const addressEl = document.getElementById('contact-address');
+        if (addressEl && data.organizationName) {
+            addressEl.innerHTML = `
+                ${data.organizationName}<br>
+                ${data.street}<br>
+                ${data.postalCode} ${data.city}<br>
+                ${data.country}
+            `;
+        }
+
+        // Update hours
+        const hoursEl = document.getElementById('contact-hours');
+        if (hoursEl && data.hours) {
+            hoursEl.innerHTML = `
+                ${data.hours.weekdays}<br>
+                ${data.hours.weekend}
+            `;
+        }
+    } catch (error) {
+        console.error('Error loading contact info:', error);
+    }
+}
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializePDFs();
+    loadContactInfo();
+
+    // Accessibility: Skip link functionality
+    const skipLink = document.querySelector('.skip-link');
+    if (skipLink) {
+        skipLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            const mainContent = document.getElementById('main-content');
+            if (mainContent) {
+                mainContent.tabIndex = -1;
+                mainContent.focus();
+                mainContent.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+});
+
+// Handle contact form submission (if not using external service)
+const contactForm = document.getElementById('contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // Get form data
-        const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            message: document.getElementById('message').value
-        };
-
-        // In a real application, you would send this data to a server
-        console.log('Form submitted:', formData);
-
-        // Show success message
-        alert('Bedankt voor uw bericht! We nemen zo spoedig mogelijk contact met u op.');
-
-        // Reset form
-        contactForm.reset();
+        // Form will be handled by Formspree or similar service
+        // You can add custom handling here if needed
     });
 }
-
-// Add animation on scroll
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-// Observe activity cards
-document.querySelectorAll('.activity-card').forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(card);
-});
-
-// Keyboard navigation improvements
-document.addEventListener('keydown', function(e) {
-    // Skip to main content with 'S' key
-    if (e.key === 's' || e.key === 'S') {
-        const aboutSection = document.getElementById('about');
-        if (aboutSection && !e.target.matches('input, textarea')) {
-            aboutSection.scrollIntoView({ behavior: 'smooth' });
-            aboutSection.setAttribute('tabindex', '-1');
-            aboutSection.focus();
-        }
-    }
-});
-
-// Parse YAML frontmatter from markdown
-function parseFrontmatter(content) {
-    const frontmatterRegex = /^---\n([\s\S]*?)\n---/;
-    const match = content.match(frontmatterRegex);
-
-    if (!match) return null;
-
-    const frontmatter = {};
-    const lines = match[1].split('\n');
-
-    lines.forEach(line => {
-        const colonIndex = line.indexOf(':');
-        if (colonIndex > -1) {
-            const key = line.substring(0, colonIndex).trim();
-            let value = line.substring(colonIndex + 1).trim();
-
-            // Remove quotes
-            if (value.startsWith('"') && value.endsWith('"')) {
-                value = value.slice(1, -1);
-            }
-
-            // Convert boolean strings
-            if (value === 'true') value = true;
-            if (value === 'false') value = false;
-
-            frontmatter[key] = value;
-        }
-    });
-
-    return frontmatter;
-}
-
-// Helper function to render an event card
-function renderEventCard(event) {
-    const dateStr = event.date.toLocaleDateString('nl-BE', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
-
-    const timeStr = event.date.toLocaleTimeString('nl-BE', {
-        hour: '2-digit',
-        minute: '2-digit'
-    });
-
-    return `
-        <div class="event-card">
-            <div class="event-date">
-                <div class="event-day">${event.date.getDate()}</div>
-                <div class="event-month">${event.date.toLocaleDateString('nl-BE', { month: 'short' })}</div>
-            </div>
-            <div class="event-content">
-                <h3>${event.title}</h3>
-                <p class="event-meta">
-                    <strong>📅 ${dateStr}</strong><br>
-                    <strong>🕐 ${timeStr}</strong><br>
-                    <strong>📍 ${event.location}</strong>
-                </p>
-                <p class="event-description">${event.description}</p>
-                ${event.category ? `<span class="event-category">${event.category}</span>` : ''}
-                ${event.ageGroup ? `<span class="event-age">${event.ageGroup}</span>` : ''}
-                ${event.maxParticipants ? `<p class="event-participants">Max ${event.maxParticipants} deelnemers</p>` : ''}
-            </div>
-        </div>
-    `;
-}
-
-// Load future events from CMS
-async function loadEvents() {
-    const eventsContainer = document.getElementById('events-container');
-    const noEventsMessage = document.getElementById('no-events-message');
-
-    try {
-        const response = await fetch('events.json');
-
-        if (!response.ok) {
-            console.error('Could not load events.json');
-            eventsContainer.innerHTML = '<p>Kon evenementen niet laden.</p>';
-            return;
-        }
-
-        const allEvents = await response.json();
-
-        // Convert date strings to Date objects and filter active events
-        const events = allEvents
-            .filter(event => event.active !== false)
-            .map(event => ({
-                ...event,
-                date: new Date(event.date)
-            }));
-
-        // Filter future events
-        const now = new Date();
-        const futureEvents = events.filter(event => event.date >= now);
-
-        // Sort by date (ascending - soonest first)
-        futureEvents.sort((a, b) => a.date - b.date);
-
-        // Display events
-        if (futureEvents.length > 0) {
-            eventsContainer.innerHTML = futureEvents.map(renderEventCard).join('');
-            noEventsMessage.style.display = 'none';
-        } else {
-            eventsContainer.innerHTML = '';
-            noEventsMessage.style.display = 'block';
-        }
-
-    } catch (error) {
-        console.error('Error loading events:', error);
-        eventsContainer.innerHTML = '<p>Er is een fout opgetreden bij het laden van evenementen.</p>';
-    }
-}
-
-// Load past events from CMS
-async function loadPastEvents() {
-    const pastEventsContainer = document.getElementById('past-events-container');
-    const noPastEventsMessage = document.getElementById('no-past-events-message');
-
-    if (!pastEventsContainer) return;
-
-    try {
-        const response = await fetch('events.json');
-
-        if (!response.ok) {
-            console.error('Could not load events.json');
-            pastEventsContainer.innerHTML = '<p>Kon evenementen niet laden.</p>';
-            return;
-        }
-
-        const allEvents = await response.json();
-
-        // Convert date strings to Date objects and filter active events
-        const events = allEvents
-            .filter(event => event.active !== false)
-            .map(event => ({
-                ...event,
-                date: new Date(event.date)
-            }));
-
-        // Filter past events
-        const now = new Date();
-        const pastEvents = events.filter(event => event.date < now);
-
-        // Sort by date (descending - most recent first)
-        pastEvents.sort((a, b) => b.date - a.date);
-
-        // Display events (limit to 6 most recent)
-        if (pastEvents.length > 0) {
-            const recentPast = pastEvents.slice(0, 6);
-            pastEventsContainer.innerHTML = recentPast.map(renderEventCard).join('');
-            noPastEventsMessage.style.display = 'none';
-        } else {
-            pastEventsContainer.innerHTML = '';
-            noPastEventsMessage.style.display = 'block';
-        }
-
-    } catch (error) {
-        console.error('Error loading past events:', error);
-        pastEventsContainer.innerHTML = '<p>Er is een fout opgetreden bij het laden van evenementen.</p>';
-    }
-}
-
-// Load activities from CMS
-async function loadActivities() {
-    const activitiesContainer = document.querySelector('.activities-grid');
-
-    if (!activitiesContainer) {
-        console.error('Activities container not found');
-        return;
-    }
-
-    try {
-        // Load activities from the generated manifest file
-        const response = await fetch('activities.json');
-
-        if (!response.ok) {
-            console.error('Could not load activities.json - Status:', response.status);
-            activitiesContainer.innerHTML = '<p>Kon activiteiten niet laden. Probeer de pagina te verversen.</p>';
-            return;
-        }
-
-        const allActivities = await response.json();
-        console.log('Loaded activities:', allActivities);
-
-        // Filter active activities
-        const activities = allActivities.filter(activity => activity.active !== false);
-
-        // Sort by order (already sorted in build script, but just to be safe)
-        activities.sort((a, b) => (a.order || 999) - (b.order || 999));
-
-        // Display activities
-        if (activities.length > 0) {
-            activitiesContainer.innerHTML = activities.map(activity => {
-                return `
-                    <div class="activity-card">
-                        <div class="activity-icon">${activity.icon || '❓'}</div>
-                        <h3>${activity.title}</h3>
-                        <p>${activity.description}</p>
-                    </div>
-                `;
-            }).join('');
-        } else {
-            activitiesContainer.innerHTML = '<p>Geen activiteiten beschikbaar.</p>';
-        }
-
-    } catch (error) {
-        console.error('Error loading activities:', error);
-        activitiesContainer.innerHTML = '<p>Fout bij laden van activiteiten: ' + error.message + '</p>';
-    }
-}
-
-// Add focus indicator for better keyboard navigation
-document.addEventListener('DOMContentLoaded', function() {
-    // Load activities and events
-    loadActivities();
-    loadEvents();
-    loadPastEvents();
-
-    // Add skip to content link for screen readers
-    const skipLink = document.createElement('a');
-    skipLink.href = '#about';
-    skipLink.className = 'skip-link';
-    skipLink.textContent = 'Spring naar hoofdinhoud';
-    skipLink.style.cssText = `
-        position: absolute;
-        top: -40px;
-        left: 0;
-        background: #000;
-        color: #fff;
-        padding: 8px;
-        text-decoration: none;
-        z-index: 100;
-    `;
-    skipLink.addEventListener('focus', function() {
-        this.style.top = '0';
-    });
-    skipLink.addEventListener('blur', function() {
-        this.style.top = '-40px';
-    });
-    document.body.insertBefore(skipLink, document.body.firstChild);
-});

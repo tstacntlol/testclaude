@@ -1,46 +1,42 @@
 backend:
   name: git-gateway
   branch: claude/hobby-finder-website-YlMk0
-  # Netlify Identity handles authentication automatically
-  # No OAuth server needed!
 
 publish_mode: editorial_workflow
 
 # Media files will be stored in the repository
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+media_folder: "pdfs"
+public_folder: "/pdfs"
 
 # Collections define the structure of the content
 collections:
-  # Events Collection
-  - name: "events"
-    label: "Evenementen"
-    folder: "content/events"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - {label: "Titel", name: "title", widget: "string"}
-      - {label: "Datum", name: "date", widget: "datetime"}
-      - {label: "Locatie", name: "location", widget: "string"}
-      - {label: "Beschrijving", name: "description", widget: "text"}
-      - {label: "Categorie", name: "category", widget: "select", options: ["Creatieve Kunsten", "Muziek & Dans", "Aangepaste Sport", "Lezen & Verhalen", "Theater & Drama", "Wetenschap & Technologie"]}
-      - {label: "Max Deelnemers", name: "maxParticipants", widget: "number", required: false}
-      - {label: "Leeftijdsgroep", name: "ageGroup", widget: "string", required: false}
-      - {label: "Afbeelding", name: "image", widget: "image", required: false}
-      - {label: "Actief", name: "active", widget: "boolean", default: true}
+  # PDF Sections - One file per section
+  - name: "pdf_sections"
+    label: "PDF Secties"
+    files:
+      - name: "programma"
+        label: "Programma"
+        file: "content/pdfs/programma.json"
+        fields:
+          - {label: "Titel", name: "title", widget: "string", default: "Programma"}
+          - {label: "PDF Bestand", name: "pdf", widget: "file", required: false, hint: "Upload een PDF bestand voor het programma"}
+          - {label: "Actief", name: "active", widget: "boolean", default: true}
 
-  # Activities (for updating the main activities section)
-  - name: "activities"
-    label: "Activiteiten"
-    folder: "content/activities"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Titel", name: "title", widget: "string"}
-      - {label: "Icon", name: "icon", widget: "string", hint: "Emoji icoon (bijv. 🎨, 🎵, ⚽)"}
-      - {label: "Beschrijving", name: "description", widget: "text"}
-      - {label: "Volgorde", name: "order", widget: "number", default: 1}
-      - {label: "Actief", name: "active", widget: "boolean", default: true}
+      - name: "traject"
+        label: "Vrijetijds Traject Begeleiding"
+        file: "content/pdfs/traject.json"
+        fields:
+          - {label: "Titel", name: "title", widget: "string", default: "Vrijetijds Traject Begeleiding"}
+          - {label: "PDF Bestand", name: "pdf", widget: "file", required: false, hint: "Upload een PDF bestand voor vrijetijds traject begeleiding"}
+          - {label: "Actief", name: "active", widget: "boolean", default: true}
+
+      - name: "over_ons"
+        label: "Over Ons"
+        file: "content/pdfs/over-ons.json"
+        fields:
+          - {label: "Titel", name: "title", widget: "string", default: "Over Ons"}
+          - {label: "PDF Bestand", name: "pdf", widget: "file", required: false, hint: "Upload een PDF bestand voor Over Ons"}
+          - {label: "Actief", name: "active", widget: "boolean", default: true}
 
   # Site Settings
   - name: "settings"
@@ -50,6 +46,7 @@ collections:
         label: "Contact Informatie"
         file: "content/settings/contact.json"
         fields:
+          - {label: "Organisatie Naam", name: "organizationName", widget: "string", default: "Vinc VZW"}
           - {label: "Email", name: "email", widget: "string"}
           - {label: "Telefoon", name: "phone", widget: "string"}
           - {label: "Adres - Straat", name: "street", widget: "string"}
@@ -68,13 +65,3 @@ collections:
             fields:
               - {label: "Facebook", name: "facebook", widget: "string", required: false}
               - {label: "Instagram", name: "instagram", widget: "string", required: false}
-              - {label: "LinkedIn", name: "linkedin", widget: "string", required: false}
-
-      - name: "about"
-        label: "Over Ons"
-        file: "content/settings/about.json"
-        fields:
-          - {label: "Introductie", name: "intro", widget: "text"}
-          - {label: "Tweede Paragraaf", name: "paragraph2", widget: "text"}
-          - {label: "Missie Titel", name: "missionTitle", widget: "string", default: "Onze Missie"}
-          - {label: "Missie Tekst", name: "missionText", widget: "text"}

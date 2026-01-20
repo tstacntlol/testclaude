@@ -8,8 +8,13 @@
     <link rel="stylesheet" href="styles.css">
     <!-- Netlify Identity Widget for CMS authentication -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <!-- PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
 <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Spring naar hoofdinhoud</a>
+
     <!-- Header with Navigation -->
     <header id="header">
         <nav class="navbar">
@@ -18,9 +23,9 @@
                     <h1>Vinc vzw</h1>
                 </div>
                 <ul class="nav-menu" role="menubar">
-                    <li role="none"><a href="#about" role="menuitem">Over Ons</a></li>
-                    <li role="none"><a href="#activities" role="menuitem">Activiteiten</a></li>
-                    <li role="none"><a href="#events" role="menuitem">Evenementen</a></li>
+                    <li role="none"><a href="#programma" role="menuitem">Programma</a></li>
+                    <li role="none"><a href="#traject" role="menuitem">Vrijetijds Traject Begeleiding</a></li>
+                    <li role="none"><a href="#over-ons" role="menuitem">Over Ons</a></li>
                     <li role="none"><a href="#contact" role="menuitem">Contact</a></li>
                 </ul>
             </div>
@@ -34,165 +39,147 @@
         </div>
     </header>
 
-    <!-- About Us Section -->
-    <section id="about" class="section about-section">
-        <div class="container">
-            <h2>Over Ons</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        Vinc vzw (voorheen Gehandicapten en Solidariteit) wil personen met een beperking een actieve vrijetijdsbesteding aanbieden.
-                        Onze vereniging staat open voor personen met of zonder beperking. We zijn erkend door het VAPH als vrijetijdszorgorganisatie.
-                    </p>
-                    <p>
-                        Solidaris Brabant besteedt veel aandacht aan mensen met een beperking. Via Vinc vzw bieden we hen een breed scala aan vrijetijdsactiviteiten.
-                        Onze naam verandert, maar niet onze missie: Vinc, waar vrije tijd verbindt!
-                    </p>
-                    <h3>Wat bieden wij aan?</h3>
-                    <ul>
-                        <li>Een aangepast vrijetijdsaanbod (excursies, culturele uitstapjes, workshops, jongerenweekends, reizen...)</li>
-                        <li>Sensibiliseringsmomenten en vormingen aan gebruikers, ouders, begeleiders en reguliere diensten</li>
-                        <li>Individuele vrijetijdstrajectbegeleiding bij de zoektocht naar aangepaste vrijetijdsbesteding</li>
-                        <li>Belangenverdediging voor personen met een beperking</li>
-                        <li>Doorverwijzing naar de juiste instanties</li>
-                        <li>Ondersteuning van lokale afdelingen en vrijwilligers</li>
-                    </ul>
-                    <h3>Lidmaatschap</h3>
-                    <p>
-                        <strong>Voor iedereen:</strong> mensen met of zonder beperking<br>
-                        <strong>Lidgeld:</strong> €15 per jaar<br>
-                        <strong>Gratis voor leden van Solidaris Brabant!</strong> Leden van Solidaris Brabant die zich aansluiten bij Vinc vzw genieten een tussenkomst van €15 in het betaalde lidgeld.
-                    </p>
-                    <p>
-                        <strong>Extra voordeel:</strong> Leden die deelnemen aan een verblijf van Vinc vzw hebben recht op een tegemoetkoming van €2,50 per dag, gedurende maximaal 14 dagen per jaar.
-                    </p>
-                </div>
-                <div class="about-image">
-                    <div class="placeholder-image">
-                        <span>👨‍👩‍👧‍👦</span>
+    <main id="main-content">
+        <!-- Programma Section -->
+        <section id="programma" class="section pdf-section">
+            <div class="container">
+                <h2>Programma</h2>
+                <div class="pdf-viewer-container" id="programma-viewer">
+                    <div class="pdf-loading">
+                        <p>PDF wordt geladen...</p>
                     </div>
+                    <div class="pdf-controls" style="display: none;">
+                        <button class="pdf-nav-btn" id="programma-prev" aria-label="Vorige pagina">← Vorige</button>
+                        <span class="pdf-page-info">
+                            Pagina <span id="programma-page-num">1</span> van <span id="programma-page-count">1</span>
+                        </span>
+                        <button class="pdf-nav-btn" id="programma-next" aria-label="Volgende pagina">Volgende →</button>
+                    </div>
+                    <canvas id="programma-canvas" class="pdf-canvas"></canvas>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Activities Section -->
-    <section id="activities" class="section activities-section">
-        <div class="container">
-            <h2>Onze Activiteiten</h2>
-            <p class="section-intro">Wij bieden een breed scala aan aangepaste activiteiten voor verschillende interesses en mogelijkheden:</p>
-
-            <div class="activities-grid">
-                <!-- Activities will be loaded dynamically from CMS -->
-                <div class="loading-message">
-                    <p>Activiteiten worden geladen...</p>
+        <!-- Vrijetijds Traject Begeleiding Section -->
+        <section id="traject" class="section pdf-section">
+            <div class="container">
+                <h2>Vrijetijds Traject Begeleiding</h2>
+                <div class="pdf-viewer-container" id="traject-viewer">
+                    <div class="pdf-loading">
+                        <p>PDF wordt geladen...</p>
+                    </div>
+                    <div class="pdf-controls" style="display: none;">
+                        <button class="pdf-nav-btn" id="traject-prev" aria-label="Vorige pagina">← Vorige</button>
+                        <span class="pdf-page-info">
+                            Pagina <span id="traject-page-num">1</span> van <span id="traject-page-count">1</span>
+                        </span>
+                        <button class="pdf-nav-btn" id="traject-next" aria-label="Volgende pagina">Volgende →</button>
+                    </div>
+                    <canvas id="traject-canvas" class="pdf-canvas"></canvas>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Events Section -->
-    <section id="events" class="section events-section">
-        <div class="container">
-            <h2>Aankomende Evenementen</h2>
-            <p class="section-intro">Schrijf je in voor onze aankomende workshops en activiteiten!</p>
-
-            <div id="events-container" class="events-grid">
-                <!-- Events will be loaded dynamically from CMS -->
-                <div class="loading-message">
-                    <p>Evenementen worden geladen...</p>
+        <!-- Over Ons Section -->
+        <section id="over-ons" class="section pdf-section">
+            <div class="container">
+                <h2>Over Ons</h2>
+                <div class="pdf-viewer-container" id="over-ons-viewer">
+                    <div class="pdf-loading">
+                        <p>PDF wordt geladen...</p>
+                    </div>
+                    <div class="pdf-controls" style="display: none;">
+                        <button class="pdf-nav-btn" id="over-ons-prev" aria-label="Vorige pagina">← Vorige</button>
+                        <span class="pdf-page-info">
+                            Pagina <span id="over-ons-page-num">1</span> van <span id="over-ons-page-count">1</span>
+                        </span>
+                        <button class="pdf-nav-btn" id="over-ons-next" aria-label="Volgende pagina">Volgende →</button>
+                    </div>
+                    <canvas id="over-ons-canvas" class="pdf-canvas"></canvas>
                 </div>
             </div>
+        </section>
 
-            <div id="no-events-message" class="no-events" style="display: none;">
-                <p>Er zijn momenteel geen evenementen gepland. Neem contact met ons op voor meer informatie!</p>
-            </div>
-        </div>
-    </section>
+        <!-- Contact Section -->
+        <section id="contact" class="section contact-section">
+            <div class="container">
+                <h2>Contact</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Neem contact met ons op</h3>
+                        <p>Heeft u vragen of wilt u meer informatie? Neem gerust contact met ons op!</p>
 
-    <!-- Past Events Section -->
-    <section id="past-events" class="section past-events-section">
-        <div class="container">
-            <h2>Afgelopen Evenementen</h2>
-            <p class="section-intro">Bekijk onze recente activiteiten en evenementen</p>
-
-            <div id="past-events-container" class="events-grid">
-                <!-- Past events will be loaded dynamically from CMS -->
-                <div class="loading-message">
-                    <p>Evenementen worden geladen...</p>
-                </div>
-            </div>
-
-            <div id="no-past-events-message" class="no-events" style="display: none;">
-                <p>Er zijn nog geen afgelopen evenementen.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section contact-section">
-        <div class="container">
-            <h2>Contact</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Neem contact met ons op</h3>
-                    <p>Heeft u vragen of wilt u meer informatie? Neem gerust contact met ons op!</p>
-
-                    <div class="info-item">
-                        <strong>📧 Email:</strong>
-                        <a href="mailto:info@vincvzw.be">info@vincvzw.be</a>
-                    </div>
-
-                    <div class="info-item">
-                        <strong>📞 Telefoon:</strong>
-                        <a href="tel:+3225461594">02 546 15 94</a>
-                    </div>
-
-                    <div class="info-item">
-                        <strong>📍 Adres:</strong>
-                        <p>Mussenstraat 17-19<br>1000 Brussel<br>België</p>
-                    </div>
-
-                    <div class="info-item">
-                        <strong>🌐 Website:</strong>
-                        <a href="https://www.vincvzw.be" target="_blank" rel="noopener">www.vincvzw.be</a>
-                    </div>
-
-                    <div class="info-item">
-                        <strong>📱 Social Media:</strong>
-                        <a href="https://www.facebook.com/VINCvzw" target="_blank" rel="noopener">VINC vzw op Facebook</a>
-                    </div>
-                </div>
-
-                <div class="contact-form">
-                    <h3>Stuur ons een bericht</h3>
-                    <form>
-                        <div class="form-group">
-                            <label for="name">Naam *</label>
-                            <input type="text" id="name" name="name" required aria-required="true">
+                        <div class="info-item">
+                            <strong>📧 Email:</strong>
+                            <a href="mailto:info@vincvzw.be">info@vincvzw.be</a>
                         </div>
 
-                        <div class="form-group">
-                            <label for="email">Email *</label>
-                            <input type="email" id="email" name="email" required aria-required="true">
+                        <div class="info-item">
+                            <strong>📞 Telefoon:</strong>
+                            <a href="tel:+3225461594">02 546 15 94</a>
                         </div>
 
-                        <div class="form-group">
-                            <label for="phone">Telefoon</label>
-                            <input type="tel" id="phone" name="phone">
+                        <div class="info-item">
+                            <strong>📍 Adres:</strong>
+                            <p id="contact-address">
+                                Vinc VZW<br>
+                                Mussenstraat 17-19<br>
+                                1000 Brussel<br>
+                                België
+                            </p>
                         </div>
 
-                        <div class="form-group">
-                            <label for="message">Bericht *</label>
-                            <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+                        <div class="info-item">
+                            <strong>🕐 Openingsuren:</strong>
+                            <p id="contact-hours">
+                                Maandag - Vrijdag: 9:00 - 17:00<br>
+                                Weekend: Op afspraak
+                            </p>
                         </div>
 
-                        <button type="submit" class="submit-button">Verstuur</button>
-                    </form>
+                        <div class="social-links-contact">
+                            <h3>Volg ons</h3>
+                            <div class="social-buttons">
+                                <a href="https://www.facebook.com/VINCvzw" target="_blank" rel="noopener" class="social-btn facebook" aria-label="Bezoek ons op Facebook">
+                                    <span>Facebook</span>
+                                </a>
+                                <a href="https://www.instagram.com/vinc.vzw?igsh=cjNtc3I4NmE5d2xx" target="_blank" rel="noopener" class="social-btn instagram" aria-label="Volg ons op Instagram">
+                                    <span>Instagram</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-form">
+                        <h3>Stuur ons een bericht</h3>
+                        <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                            <div class="form-group">
+                                <label for="name">Naam:</label>
+                                <input type="text" id="name" name="name" required aria-required="true">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" required aria-required="true">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Telefoon:</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Bericht:</label>
+                                <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+                            </div>
+
+                            <button type="submit" class="submit-btn">Verstuur Bericht</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer id="footer">
@@ -207,6 +194,7 @@
                 <div class="footer-section">
                     <h3>Locatie</h3>
                     <p>
+                        Vinc VZW<br>
                         Mussenstraat 17-19<br>
                         1000 Brussel<br>
                         België
@@ -225,7 +213,7 @@
                     <h3>Volg Ons</h3>
                     <div class="social-links">
                         <a href="https://www.facebook.com/VINCvzw" target="_blank" rel="noopener" aria-label="VINC vzw op Facebook">Facebook</a>
-                        <a href="https://www.vincvzw.be" target="_blank" rel="noopener" aria-label="VINC vzw website">Website</a>
+                        <a href="https://www.instagram.com/vinc.vzw?igsh=cjNtc3I4NmE5d2xx" target="_blank" rel="noopener" aria-label="VINC vzw op Instagram">Instagram</a>
                     </div>
                 </div>
             </div>
@@ -240,9 +228,10 @@
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="script.js"></script>
 
-    <!-- Netlify Identity redirect handling -->
+    <!-- Netlify Identity Widget redirect handler -->
     <script>
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
