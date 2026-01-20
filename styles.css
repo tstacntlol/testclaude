@@ -101,7 +101,7 @@ a:focus {
 }
 
 .logo-image {
-    height: 60px;
+    height: 78px;
     display: flex;
     align-items: center;
 }
@@ -139,18 +139,18 @@ a:focus {
 /* Hero Section */
 .hero {
     text-align: center;
-    padding: 4rem 0;
+    padding: 2.8rem 0;
 }
 
 .hero h2 {
-    font-size: 2.5rem;
+    font-size: 1.75rem;
     color: var(--text-light);
-    margin-bottom: 1rem;
+    margin-bottom: 0.7rem;
 }
 
 .hero p {
-    font-size: 1.3rem;
-    margin-bottom: 2rem;
+    font-size: 0.91rem;
+    margin-bottom: 1.4rem;
     color: var(--text-light);
 }
 
@@ -158,8 +158,8 @@ a:focus {
     display: inline-block;
     background-color: var(--accent-color);
     color: var(--text-light);
-    padding: 1rem 2.5rem;
-    font-size: 1.2rem;
+    padding: 0.7rem 1.75rem;
+    font-size: 0.84rem;
     font-weight: 600;
     border-radius: 50px;
     transition: all 0.3s ease;
@@ -552,7 +552,7 @@ a:focus {
     }
 
     .logo-image {
-        height: 50px;
+        height: 65px;
     }
 
     .nav-menu {
