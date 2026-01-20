@@ -19,6 +19,9 @@ class PDFViewer {
         this.pageNumPending = null;
         this.scale = 1.5;
 
+        // Maximum height for PDF (to fit within viewport)
+        this.maxHeight = window.innerHeight - 300; // Leave room for header, controls, etc.
+
         // Bind event listeners
         if (this.prevBtn && this.nextBtn) {
             this.prevBtn.addEventListener('click', () => this.onPrevPage());
@@ -55,7 +58,21 @@ class PDFViewer {
         this.pageRendering = true;
 
         this.pdfDoc.getPage(num).then(page => {
-            const viewport = page.getViewport({ scale: this.scale });
+            // Get initial viewport to calculate proper scale
+            const initialViewport = page.getViewport({ scale: 1.0 });
+
+            // Calculate scale to fit within maxHeight while maintaining aspect ratio
+            let scale = this.maxHeight / initialViewport.height;
+
+            // Also check if width needs to be constrained
+            const maxWidth = Math.min(window.innerWidth - 100, 1000); // Max 1000px or window width
+            const widthScale = maxWidth / initialViewport.width;
+
+            // Use the smaller scale to ensure it fits in both dimensions
+            scale = Math.min(scale, widthScale);
+
+            // Get final viewport with calculated scale
+            const viewport = page.getViewport({ scale: scale });
             const context = this.canvas.getContext('2d');
 
             this.canvas.height = viewport.height;
@@ -195,20 +212,6 @@ async function loadContactInfo() {
 document.addEventListener('DOMContentLoaded', function() {
     initializePDFs();
     loadContactInfo();
-
-    // Accessibility: Skip link functionality
-    const skipLink = document.querySelector('.skip-link');
-    if (skipLink) {
-        skipLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            const mainContent = document.getElementById('main-content');
-            if (mainContent) {
-                mainContent.tabIndex = -1;
-                mainContent.focus();
-                mainContent.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    }
 });
 
 // Handle contact form submission (if not using external service)
