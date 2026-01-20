@@ -149,7 +149,12 @@
 
                     <div class="contact-form">
                         <h3>Stuur ons een bericht</h3>
-                        <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                        <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                            <input type="hidden" name="form-name" value="contact" />
+                            <p style="display: none;">
+                                <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                            </p>
+
                             <div class="form-group">
                                 <label for="name">Naam:</label>
                                 <input type="text" id="name" name="name" required aria-required="true">
@@ -171,6 +176,7 @@
                             </div>
 
                             <button type="submit" class="submit-btn">Verstuur Bericht</button>
+                            <div class="form-status" id="form-status" style="display: none;"></div>
                         </form>
                     </div>
                 </div>
@@ -224,6 +230,27 @@
             </div>
         </div>
     </footer>
+
+    <!-- PDF Modal for enlarged view -->
+    <div id="pdf-modal" class="pdf-modal" style="display: none;">
+        <div class="pdf-modal-overlay"></div>
+        <div class="pdf-modal-content">
+            <button class="pdf-modal-close" aria-label="Sluit PDF weergave">&times;</button>
+            <div class="pdf-modal-header">
+                <h3 id="pdf-modal-title">PDF Weergave</h3>
+            </div>
+            <div class="pdf-modal-controls">
+                <button class="pdf-nav-btn" id="modal-prev" aria-label="Vorige pagina">← Vorige</button>
+                <span class="pdf-page-info">
+                    Pagina <span id="modal-page-num">1</span> van <span id="modal-page-count">1</span>
+                </span>
+                <button class="pdf-nav-btn" id="modal-next" aria-label="Volgende pagina">Volgende →</button>
+            </div>
+            <div class="pdf-modal-canvas-container">
+                <canvas id="modal-canvas" class="pdf-canvas-modal"></canvas>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="script.js"></script>
