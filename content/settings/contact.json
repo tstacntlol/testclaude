@@ -7,8 +7,8 @@
   "postalCode": "1000",
   "country": "België",
   "hours": {
-    "weekdays": "Maandag - Vrijdag: 9:00 - 17:00",
-    "weekend": "Weekend: Op afspraak"
+    "weekdays": "Maandag – Donderdag: 8.15 tot 16.30<br>Vrijdag: 8.15 tot 15.00",
+    "weekend": "Weekend: gesloten, tenzij er een geplande activiteit is"
   },
   "social": {
     "facebook": "https://www.facebook.com/VINCvzw",
