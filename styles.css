@@ -78,7 +78,7 @@ a:focus {
 
 /* Header & Navigation */
 #header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
     color: var(--text-light);
 }
 
@@ -141,19 +141,18 @@ a:focus {
 .hero {
     text-align: center;
     padding: 2.8rem 0;
-    background-color: #fdf5e6;  /* Light yellowish background */
 }
 
 .hero h2 {
     font-size: 1.75rem;
-    color: var(--text-dark);
+    color: var(--text-light);
     margin-bottom: 0.7rem;
 }
 
 .hero p {
     font-size: 0.91rem;
     margin-bottom: 1.4rem;
-    color: var(--text-dark);
+    color: var(--text-light);
 }
 
 .cta-button {
@@ -422,6 +421,10 @@ a:focus {
 
 .info-item p {
     margin: 0;
+}
+
+#contact-hours {
+    line-height: 1.8;
 }
 
 /* Contact Form */
