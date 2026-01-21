@@ -1,8 +1,9 @@
-/* Root Variables */
+/* Root Variables - VINC Colors */
 :root {
-    --primary-color: #d8232a;
-    --secondary-color: #b71c22;
-    --accent-color: #ff4545;
+    --primary-color: #018bb3;      /* VINC donkerblauw */
+    --secondary-color: #87bfb4;    /* VINC blauw-groen */
+    --accent-color: #e3a51a;       /* VINC geel */
+    --vinc-red: #d8232a;           /* VINC rood (used sparingly) */
     --text-dark: #2C3E50;
     --text-light: #FFFFFF;
     --bg-light: #F8F9FA;

@@ -23,11 +23,11 @@ collections:
           - {label: "Actief", name: "active", widget: "boolean", default: true}
 
       - name: "traject"
-        label: "Vrijetijds-traject-begeleiding"
+        label: "Vrijetijdstrajectbegeleiding"
         file: "content/pdfs/traject.json"
         fields:
-          - {label: "Titel", name: "title", widget: "string", default: "Vrijetijds-traject-begeleiding"}
-          - {label: "PDF Bestand", name: "pdf", widget: "file", required: false, hint: "Upload een PDF bestand voor vrijetijds-traject-begeleiding"}
+          - {label: "Titel", name: "title", widget: "string", default: "Vrijetijdstrajectbegeleiding"}
+          - {label: "PDF Bestand", name: "pdf", widget: "file", required: false, hint: "Upload een PDF bestand voor vrijetijdstrajectbegeleiding"}
           - {label: "Actief", name: "active", widget: "boolean", default: true}
 
       - name: "over_ons"
