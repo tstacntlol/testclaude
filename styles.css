@@ -78,7 +78,7 @@ a:focus {
 
 /* Header & Navigation */
 #header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: var(--text-light);
 }
 
@@ -370,7 +370,7 @@ a:focus {
 }
 
 .contact-info-centered {
-    max-width: 900px;
+    max-width: 1000px;
     width: 100%;
     background-color: var(--bg-white);
     padding: 3rem;
@@ -383,6 +383,7 @@ a:focus {
     color: var(--primary-color);
     margin-bottom: 1rem;
     font-size: 1.8rem;
+    text-align: center;
 }
 
 .contact-info-centered > p {
@@ -393,8 +394,8 @@ a:focus {
 
 .contact-info-centered .info-item {
     display: inline-block;
-    width: 48%;
-    margin: 0.5rem 1%;
+    width: 46%;
+    margin: 0.5rem 2%;
     vertical-align: top;
     text-align: left;
 }
