@@ -1,17 +1,17 @@
 {
-  "organizationName": "Vinc VZW",
-  "email": "info@vincvzw.be",
-  "phone": "02 546 15 94",
   "street": "Mussenstraat 17-19",
   "city": "Brussel",
-  "postalCode": "1000",
-  "country": "België",
-  "hours": {
-    "weekdays": "<strong>Maandag – Donderdag:</strong> 8.15 tot 16.30<br><strong>Vrijdag:</strong> 8.15 tot 15.00",
-    "weekend": "<strong>Weekend:</strong> gesloten, tenzij er een geplande activiteit is"
-  },
   "social": {
     "facebook": "https://www.facebook.com/VINCvzw",
     "instagram": "https://www.instagram.com/vinc.vzw?igsh=cjNtc3I4NmE5d2xx"
-  }
+  },
+  "phone": "02 546 15 94",
+  "hours": {
+    "weekdays": "<strong>Maandag – Donderdag:</strong> Van 8.15 tot 16.30<br><strong>Vrijdag:</strong> Van 8.15 tot 15.00",
+    "weekend": "<strong>Weekend:</strong> Gesloten (tenzij er een geplande activiteit is)"
+  },
+  "country": "België",
+  "postalCode": "1000",
+  "email": "info@vincvzw.be",
+  "organizationName": "Vinc VZW"
 }
