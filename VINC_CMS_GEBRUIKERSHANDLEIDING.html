@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinc vzw - Website Beheer Handleiding</title>
+    <style>
+        @page {
+            margin: 2cm;
+            size: A4;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            font-size: 11pt;
+        }
+
+        h1 {
+            color: #018bb3;
+            border-bottom: 4px solid #87bfb4;
+            padding-bottom: 10px;
+            font-size: 28pt;
+            page-break-before: always;
+        }
+
+        h1:first-of-type {
+            page-break-before: avoid;
+        }
+
+        h2 {
+            color: #018bb3;
+            margin-top: 30px;
+            font-size: 20pt;
+            border-left: 5px solid #e3a51a;
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: #018bb3;
+            margin-top: 20px;
+            font-size: 14pt;
+        }
+
+        .cover-page {
+            text-align: center;
+            padding: 100px 0;
+            page-break-after: always;
+        }
+
+        .cover-page h1 {
+            font-size: 36pt;
+            margin-bottom: 20px;
+            border: none;
+        }
+
+        .cover-page p {
+            font-size: 14pt;
+            color: #666;
+            margin: 10px 0;
+        }
+
+        .screenshot-placeholder {
+            background-color: #f0f0f0;
+            border: 2px dashed #018bb3;
+            padding: 40px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 8px;
+            page-break-inside: avoid;
+        }
+
+        .info-box {
+            background-color: #e8f4f8;
+            border-left: 5px solid #018bb3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            page-break-inside: avoid;
+        }
+
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 5px solid #e3a51a;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            page-break-inside: avoid;
+        }
+
+        .success-box {
+            background-color: #d4edda;
+            border-left: 5px solid #87bfb4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            page-break-inside: avoid;
+        }
+
+        .step-number {
+            background-color: #018bb3;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        ol {
+            counter-reset: item;
+            padding-left: 0;
+        }
+
+        ol > li {
+            list-style: none;
+            margin: 15px 0;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        ol > li:before {
+            content: counter(item);
+            counter-increment: item;
+            background-color: #018bb3;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 10pt;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        ul li:before {
+            content: "✓";
+            color: #87bfb4;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .checklist {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .checklist ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .checklist li:before {
+            content: "☐";
+            margin-right: 10px;
+            font-size: 14pt;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: #018bb3;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d8232a;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        .no-break {
+            page-break-inside: avoid;
+        }
+
+        .toc {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            page-break-after: always;
+        }
+
+        .toc h2 {
+            border: none;
+            margin-top: 0;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc li:before {
+            content: "→";
+            color: #018bb3;
+            margin-right: 10px;
+        }
+
+        .toc a {
+            color: #018bb3;
+            text-decoration: none;
+            font-size: 12pt;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #ccc;
+            color: #666;
+            font-size: 10pt;
+        }
+
+        @media print {
+            body {
+                font-size: 10pt;
+            }
+
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Cover Page -->
+<div class="cover-page">
+    <h1>Vinc vzw</h1>
+    <h2 style="border: none; color: #666;">Website Beheer Handleiding</h2>
+    <p style="font-size: 16pt; margin-top: 40px;">Stap-voor-Stap Gids voor PDF Uploads</p>
+    <p style="margin-top: 60px;">Voor: Vinc vzw medewerkers</p>
+    <p>Versie 1.0</p>
+    <p>Januari 2025</p>
+</div>
+
+<!-- Table of Contents -->
+<div class="toc">
+    <h2>📋 Inhoudsopgave</h2>
+    <ul>
+        <li><a href="#stap1">Stap 1: Inloggen op het Admin Paneel</a></li>
+        <li><a href="#stap2">Stap 2: Het Admin Paneel Begrijpen</a></li>
+        <li><a href="#stap3">Stap 3: Een PDF Uploaden</a></li>
+        <li><a href="#stap4">Stap 4: PDF's Publiceren</a></li>
+        <li><a href="#stap5">Stap 5: Een Bestaande PDF Vervangen</a></li>
+        <li><a href="#stap6">Stap 6: Uitloggen</a></li>
+        <li><a href="#faq">Veelgestelde Vragen</a></li>
+        <li><a href="#hulp">Hulp Nodig?</a></li>
+    </ul>
+</div>
+
+<!-- Main Content -->
+<h1 id="stap1">📋 Stap 1: Inloggen op het Admin Paneel</h1>
+
+<div class="info-box">
+    <h3>Wat u nodig heeft:</h3>
+    <ul>
+        <li>Een computer met internetverbinding</li>
+        <li>Uw inlog e-mailadres</li>
+        <li>Uw wachtwoord</li>
+    </ul>
+</div>
+
+<h2>1.1 Open uw internetbrowser</h2>
+<p>Klik op het icoontje van Chrome, Firefox, Safari of Edge op uw computer.</p>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 1: Browser iconen op desktop<br>
+    <small>Plaats hier een screenshot van de browser iconen</small>
+</div>
+
+<h2>1.2 Ga naar de admin pagina</h2>
+<ol>
+    <li>Typ in de adresbalk bovenaan: <code>https://vincvzw.netlify.app/admin</code></li>
+    <li>Druk op Enter</li>
+</ol>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 2: Adresbalk met de URL ingetypt<br>
+    <small>Plaats hier een screenshot van de adresbalk</small>
+</div>
+
+<h2>1.3 Vul uw gegevens in</h2>
+<p>U ziet nu een inlogscherm met twee vakjes:</p>
+<ol>
+    <li><strong>E-mailadres:</strong> Typ hier uw e-mailadres dat u van de websitebeheerder heeft ontvangen</li>
+    <li><strong>Wachtwoord:</strong> Typ hier uw wachtwoord</li>
+</ol>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 3: Inlogscherm met lege velden<br>
+    <small>Plaats hier een screenshot van het inlogscherm</small>
+</div>
+
+<div class="warning-box">
+    <strong>⚠️ LET OP:</strong>
+    <ul>
+        <li>Wachtwoorden zijn hoofdlettergevoelig (A is niet hetzelfde als a)</li>
+        <li>Controleer of Caps Lock NIET aanstaat</li>
+    </ul>
+</div>
+
+<h2>1.4 Klik op "Log in"</h2>
+<p>Klik op de blauwe knop "Log in".</p>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 4: Inlogscherm met knop "Log in" gemarkeerd<br>
+    <small>Plaats hier een screenshot met de Log in knop omcirkeld</small>
+</div>
+
+<h2>1.5 Eerste keer inloggen?</h2>
+<p>Als het de eerste keer is dat u inlogt, krijgt u misschien een e-mail om uw account te bevestigen.</p>
+<ol>
+    <li>Open uw e-mail</li>
+    <li>Zoek een e-mail van Netlify</li>
+    <li>Klik op de bevestigingslink in de e-mail</li>
+    <li>Ga terug naar de inlogpagina en log opnieuw in</li>
+</ol>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 5: Voorbeeld bevestigings e-mail<br>
+    <small>Plaats hier een screenshot van de bevestigings e-mail</small>
+</div>
+
+<div class="success-box">
+    <strong>✅ Gelukt!</strong> U bent nu ingelogd en ziet het hoofdscherm van het admin paneel.
+</div>
+
+<div class="page-break"></div>
+
+<h1 id="stap2">🎯 Stap 2: Het Admin Paneel Begrijpen</h1>
+
+<h2>Wat ziet u?</h2>
+<p>Na het inloggen ziet u het hoofdscherm. Dit scherm heeft verschillende onderdelen:</p>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 6: Volledig admin paneel overzicht met nummers bij elk onderdeel<br>
+    <small>Plaats hier een screenshot van het volledige admin paneel met genummerde aanduidingen</small>
+</div>
+
+<h2>De verschillende onderdelen:</h2>
+
+<h3>1. Menu aan de linkerkant</h3>
+<p>Dit is het belangrijkste menu. Hier vindt u:</p>
+<ul>
+    <li><strong>Contents</strong> - Het hoofdmenu (hier bent u nu)</li>
+    <li><strong>Workflow</strong> - Hier publiceert u uw wijzigingen (later meer hierover)</li>
+    <li><strong>PDF Secties</strong> - Hier uploadt u uw PDF's ← <strong style="color: #d8232a;">DIT GEBRUIKT U HET MEEST</strong></li>
+</ul>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 7: Close-up van linkermenu met PDF Secties gemarkeerd<br>
+    <small>Plaats hier een close-up van het linkermenu met PDF Secties omcirkeld</small>
+</div>
+
+<h3>2. Hoofdscherm in het midden</h3>
+<p>Hier ziet u alle onderdelen van uw website die u kunt bewerken.</p>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 8: Middenscherm met de verschillende secties zichtbaar<br>
+    <small>Plaats hier een screenshot van het middenscherm</small>
+</div>
+
+<h3>3. Bovenaan</h3>
+<ul>
+    <li><strong>Contents / Workflow tabs</strong> - Wissel tussen het bewerken en publiceren</li>
+    <li><strong>Uitlog knop</strong> - Rechtsboven om uit te loggen</li>
+</ul>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 9: Bovenbalk met tabs en uitlog knop gemarkeerd<br>
+    <small>Plaats hier een screenshot van de bovenbalk met belangrijke elementen omcirkeld</small>
+</div>
+
+<div class="page-break"></div>
+
+<h1 id="stap3">📤 Stap 3: Een PDF Uploaden</h1>
+
+<p>Nu gaan we stap voor stap een PDF uploaden naar uw website.</p>
+
+<h2>3.1 Open PDF Secties</h2>
+<p>Klik in het linkermenu op "PDF Secties".</p>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 10: Klik op PDF Secties in linkermenu<br>
+    <small>Plaats hier een screenshot met cursor op PDF Secties</small>
+</div>
+
+<h2>3.2 Kies een sectie</h2>
+<p>U ziet nu drie opties. Klik op de sectie waar u een PDF wilt uploaden:</p>
+<ul>
+    <li><strong>Programma</strong> - Voor het activiteitenprogramma</li>
+    <li><strong>Vrijetijdstrajectbegeleiding</strong> - Voor informatie over trajectbegeleiding</li>
+    <li><strong>Over Ons</strong> - Voor algemene informatie over Vinc vzw</li>
+</ul>
+<p><strong>Voorbeeld:</strong> We kiezen "Programma"</p>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 11: De drie PDF sectie opties zichtbaar<br>
+    <small>Plaats hier een screenshot van de drie sectie opties</small>
+</div>
+
+<h2>3.3 Het bewerkingsscherm</h2>
+<p>Na het klikken ziet u een formulier met drie velden:</p>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 12: Volledig bewerkingsscherm met alle velden zichtbaar<br>
+    <small>Plaats hier een screenshot van het volledige bewerkingsformulier</small>
+</div>
+
+<h3>Veld 1: Titel</h3>
+<ul>
+    <li>Dit is de naam van de sectie</li>
+    <li>U hoeft dit meestal NIET te veranderen</li>
+    <li>Laat dit gewoon zoals het is</li>
+</ul>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 13: Titel veld close-up<br>
+    <small>Plaats hier een close-up van het titel veld</small>
+</div>
+
+<h3>Veld 2: PDF Bestand ← <strong style="color: #d8232a;">BELANGRIJK</strong></h3>
+<ul>
+    <li>Dit is waar u uw PDF uploadt</li>
+    <li>Klik op dit veld om te beginnen</li>
+</ul>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 14: PDF Bestand veld leeg<br>
+    <small>Plaats hier een screenshot van het lege PDF bestand veld</small>
+</div>
+
+<h3>Veld 3: Actief (vinkje)</h3>
+<ul>
+    <li>Dit vinkje zorgt dat uw PDF op de website verschijnt</li>
+    <li>Zorg dat dit vinkje ALTIJD AANSTAAT (✓)</li>
+</ul>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 15: Actief vinkje aangevinkt<br>
+    <small>Plaats hier een screenshot van het aangevinkte Actief veld</small>
+</div>
+
+<h2>3.4 Upload uw PDF</h2>
+
+<h3>Stap 1: Klik op het veld "PDF Bestand"</h3>
+<p>Er verschijnt nu een nieuw scherm met twee opties:</p>
+<ul>
+    <li><strong>Choose a file</strong> (Kies een bestand)</li>
+    <li>Of sleep een bestand hierheen</li>
+</ul>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 16: Upload scherm met "Choose a file" knop<br>
+    <small>Plaats hier een screenshot van het upload scherm</small>
+</div>
+
+<h3>Stap 2: Klik op "Choose a file"</h3>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 17: Klik op Choose a file<br>
+    <small>Plaats hier een screenshot met cursor op Choose a file knop</small>
+</div>
+
+<h3>Stap 3: Zoek uw PDF op de computer</h3>
+<p>Er opent zich nu een venster waar u bestanden kunt zoeken op uw computer.</p>
+<div class="info-box">
+    <strong>💡 Tip:</strong> Bewaar uw PDF's altijd op een vaste plek, bijvoorbeeld:
+    <ul>
+        <li>Op het Bureaublad</li>
+        <li>In een map "Vinc PDF's" in Documenten</li>
+    </ul>
+</div>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 18: Windows verkenner / bestand kiezen venster<br>
+    <small>Plaats hier een screenshot van het bestand kiezen venster</small>
+</div>
+
+<h3>Stap 4: Selecteer uw PDF bestand</h3>
+<ol>
+    <li>Klik één keer op het PDF bestand</li>
+    <li>Het bestand wordt blauw/grijs gekleurd</li>
+    <li>Klik op de knop "Openen" of "Open" rechtsonder</li>
+</ol>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 19: PDF bestand geselecteerd in verkenner<br>
+    <small>Plaats hier een screenshot met geselecteerd PDF bestand</small>
+</div>
+
+<h3>Stap 5: Wacht tot de upload klaar is</h3>
+<p>U ziet nu:</p>
+<ul>
+    <li>Een laadbalk die langzaam volgaat</li>
+    <li>Daarna verschijnt de naam van uw PDF in het veld</li>
+</ul>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 20: Upload in uitvoering met laadbalk<br>
+    <small>Plaats hier een screenshot van de upload laadbalk</small>
+</div>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 21: Upload voltooid met bestandsnaam zichtbaar<br>
+    <small>Plaats hier een screenshot van de voltooide upload</small>
+</div>
+
+<h2>3.5 Controleer uw upload</h2>
+<p><strong>Controleer nu deze drie dingen:</strong></p>
+<div class="checklist">
+    <ul>
+        <li><strong>Is de juiste bestandsnaam zichtbaar?</strong><br>Staat er de naam van uw PDF bestand?</li>
+        <li><strong>Staat het vinkje bij "Actief" AAN?</strong><br>Is er een vinkje (✓) in het vakje?</li>
+        <li><strong>Klopt de titel?</strong><br>Staat er "Programma", "Vrijetijdstrajectbegeleiding" of "Over Ons"?</li>
+    </ul>
+</div>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 22: Volledig ingevuld formulier met alle velden correct<br>
+    <small>Plaats hier een screenshot van het correct ingevulde formulier</small>
+</div>
+
+<h2>3.6 Sla uw wijzigingen op</h2>
+<p><strong>Nu moet u opslaan!</strong></p>
+<p>Klik rechtsboven op de groene knop <strong>"Save"</strong></p>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 23: Save knop rechtsboven gemarkeerd<br>
+    <small>Plaats hier een screenshot met Save knop omcirkeld</small>
+</div>
+
+<p><strong>Na het klikken:</strong></p>
+<ul>
+    <li>De knop verandert even</li>
+    <li>U ziet een melding dat het opgeslagen is</li>
+    <li>Het scherm verandert</li>
+</ul>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 24: Bevestiging dat het opgeslagen is<br>
+    <small>Plaats hier een screenshot van de opslag bevestiging</small>
+</div>
+
+<div class="warning-box">
+    <strong>⚠️ BELANGRIJK:</strong> Uw PDF staat nu OPGESLAGEN maar nog NIET ONLINE!<br>
+    U moet nu verder naar Stap 4 om te publiceren.
+</div>
+
+<div class="page-break"></div>
+
+<h1 id="stap4">🚀 Stap 4: PDF's Publiceren</h1>
+
+<p>Uw PDF is opgeslagen, maar staat nog niet op de website. Nu gaat u publiceren!</p>
+
+<h2>4.1 Klik op "Set to Ready"</h2>
+<p>Na het opslaan ziet u rechtsboven een gele/oranje knop: <strong>"Set to Ready"</strong></p>
+<p>Klik op deze knop.</p>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 25: "Set to Ready" knop rechtsboven<br>
+    <small>Plaats hier een screenshot met Set to Ready knop omcirkeld</small>
+</div>
+
+<h2>4.2 Bevestig "Set to Ready"</h2>
+<p>Er verschijnt een pop-up venster met de vraag:<br>
+<em>"Are you sure you want to change the status to Ready?"</em></p>
+<p>Klik op <strong>"Set to Ready"</strong> (de gekleurde knop)</p>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 26: Bevestiging pop-up voor Set to Ready<br>
+    <small>Plaats hier een screenshot van de bevestiging pop-up</small>
+</div>
+
+<h2>4.3 Ga naar Workflow</h2>
+<p>Klik bovenaan op de tab <strong>"Workflow"</strong></p>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 27: Workflow tab bovenaan gemarkeerd<br>
+    <small>Plaats hier een screenshot met Workflow tab omcirkeld</small>
+</div>
+
+<h2>4.4 Begrijp de Workflow kolommen</h2>
+<p>U ziet nu drie kolommen:</p>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 28: Volledig workflow scherm met drie kolommen<br>
+    <small>Plaats hier een screenshot van het volledige workflow scherm</small>
+</div>
+
+<table>
+    <tr>
+        <th>Kolom</th>
+        <th>Betekenis</th>
+        <th>Wat doet u ermee?</th>
+    </tr>
+    <tr>
+        <td><strong>Drafts</strong><br>(Concepten)</td>
+        <td>Werk dat nog niet klaar is</td>
+        <td>U kunt hier later aan verder werken</td>
+    </tr>
+    <tr>
+        <td><strong>In Review</strong></td>
+        <td>Werk dat gecontroleerd moet worden</td>
+        <td>U gebruikt deze kolom meestal niet</td>
+    </tr>
+    <tr>
+        <td><strong>Ready</strong><br>(Klaar)</td>
+        <td>Werk dat klaar is om online te zetten</td>
+        <td><strong style="color: #d8232a;">HIER STAAT UW PDF NU</strong></td>
+    </tr>
+</table>
+
+<h2>4.5 Publiceer uw PDF</h2>
+<p><strong>In de "Ready" kolom:</strong></p>
+<ol>
+    <li>Zoek uw PDF (bijvoorbeeld "Programma")</li>
+    <li>Klik op het item</li>
+</ol>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 32: PDF item in Ready kolom, cursor erop<br>
+    <small>Plaats hier een screenshot met cursor op het PDF item</small>
+</div>
+
+<ol start="3">
+    <li>Het item opent zich</li>
+    <li>Klik rechtsboven op de groene knop <strong>"Publish now"</strong></li>
+</ol>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 33: Publish now knop rechtsboven<br>
+    <small>Plaats hier een screenshot met Publish now knop omcirkeld</small>
+</div>
+
+<ol start="5">
+    <li>Bevestig door nogmaals te klikken op <strong>"Publish now"</strong></li>
+</ol>
+<p>Er verschijnt een pop-up:<br>
+<em>"Are you sure you want to publish?"</em></p>
+<p>Klik op <strong>"Publish now"</strong></p>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 34: Bevestiging pop-up voor publiceren<br>
+    <small>Plaats hier een screenshot van de publiceer bevestiging</small>
+</div>
+
+<h2>4.6 De publicatie loopt</h2>
+<p>U ziet nu:</p>
+<ul>
+    <li>Een laadbalk of draaiend wieltje</li>
+    <li>Een melding "Publishing..."</li>
+</ul>
+<p><strong>Wacht rustig tot dit klaar is (dit duurt 1-2 minuten)</strong></p>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 35: Publicatie in uitvoering<br>
+    <small>Plaats hier een screenshot van de lopende publicatie</small>
+</div>
+
+<h2>4.7 Klaar! ✅</h2>
+<p>Na 1-2 minuten:</p>
+<ul>
+    <li>Het item verdwijnt uit de "Ready" kolom</li>
+    <li>Uw PDF staat nu LIVE op de website!</li>
+</ul>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 36: Lege Ready kolom na succesvol publiceren<br>
+    <small>Plaats hier een screenshot van de lege Ready kolom</small>
+</div>
+
+<h2>4.8 Controleer de website</h2>
+<ol>
+    <li>Open een nieuw tabblad in uw browser</li>
+    <li>Ga naar: <code>https://vincvzw.netlify.app</code></li>
+    <li>Scroll naar de sectie waar u de PDF heeft geüpload</li>
+    <li>U ziet nu uw nieuwe PDF op de website!</li>
+</ol>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 37: Website met de nieuwe PDF zichtbaar<br>
+    <small>Plaats hier een screenshot van de website met de nieuwe PDF</small>
+</div>
+
+<div class="success-box">
+    <strong>🎉 GEFELICITEERD!</strong> U heeft succesvol een PDF geüpload en gepubliceerd!
+</div>
+
+<div class="page-break"></div>
+
+<h1 id="stap5">🔄 Stap 5: Een Bestaande PDF Vervangen</h1>
+
+<p>Wilt u een oude PDF vervangen door een nieuwe? Volg deze stappen:</p>
+
+<h2>5.1 Open de sectie</h2>
+<ol>
+    <li>Klik in het linkermenu op <strong>"PDF Secties"</strong></li>
+    <li>Klik op de sectie die u wilt vervangen (Programma, Vrijetijdstrajectbegeleiding of Over Ons)</li>
+</ol>
+
+<h2>5.2 Verwijder de oude PDF</h2>
+<p>U ziet nu de huidige PDF in het "PDF Bestand" veld.</p>
+<p>Klik op de kleine <strong>"X"</strong> naast de bestandsnaam.</p>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 39: X knop naast bestandsnaam gemarkeerd<br>
+    <small>Plaats hier een screenshot met de X knop omcirkeld</small>
+</div>
+
+<p>De oude PDF is nu verwijderd en het veld is leeg.</p>
+
+<h2>5.3 Upload de nieuwe PDF</h2>
+<p>Volg nu dezelfde stappen als bij het uploaden van een nieuwe PDF:</p>
+<ol>
+    <li>Klik op "Choose a file"</li>
+    <li>Selecteer uw nieuwe PDF</li>
+    <li>Wacht tot de upload klaar is</li>
+    <li>Controleer of het vinkje "Actief" AAN staat</li>
+    <li>Klik op "Save" rechtsboven</li>
+</ol>
+
+<h2>5.4 Publiceer de nieuwe PDF</h2>
+<p>Volg de publicatie stappen uit Stap 4:</p>
+<ol>
+    <li>Klik op "Set to Ready"</li>
+    <li>Bevestig</li>
+    <li>Ga naar "Workflow"</li>
+    <li>Klik op uw item in "Ready"</li>
+    <li>Klik op "Publish now"</li>
+    <li>Bevestig</li>
+    <li>Wacht 1-2 minuten</li>
+</ol>
+
+<div class="success-box">
+    <strong>✅ Klaar!</strong> De oude PDF is vervangen door de nieuwe op uw website.
+</div>
+
+<div class="page-break"></div>
+
+<h1 id="stap6">👋 Stap 6: Uitloggen</h1>
+
+<div class="warning-box">
+    <strong>⚠️ BELANGRIJK:</strong> Altijd uitloggen als u klaar bent!
+</div>
+
+<h2>Zo doet u het:</h2>
+<ol>
+    <li>Klik rechtsboven op uw naam of het icoontje</li>
+    <li>Er opent een menu</li>
+    <li>Klik op <strong>"Log out"</strong></li>
+</ol>
+<div class="screenshot-placeholder">
+    📸 SCREENSHOT 43: Uitlog menu met Log out optie<br>
+    <small>Plaats hier een screenshot van het uitlog menu</small>
+</div>
+
+<p>U wordt nu uitgelogd en terug naar het inlogscherm gebracht.</p>
+<p><strong>U kunt nu veilig uw browser sluiten.</strong></p>
+
+<div class="page-break"></div>
+
+<h1 id="faq">❓ Veelgestelde Vragen</h1>
+
+<h2>Vraag 1: Ik ben mijn wachtwoord vergeten. Wat nu?</h2>
+<div class="info-box">
+    <strong>Antwoord:</strong>
+    <ol>
+        <li>Ga naar de inlogpagina: <code>https://vincvzw.netlify.app/admin</code></li>
+        <li>Klik op "Forgot password?"</li>
+        <li>Vul uw e-mailadres in</li>
+        <li>Klik op "Request password reset"</li>
+        <li>Controleer uw e-mail (ook spam/ongewenst)</li>
+        <li>Klik op de link in de e-mail</li>
+        <li>Maak een nieuw wachtwoord aan</li>
+    </ol>
+</div>
+
+<h2>Vraag 2: Hoe lang duurt het voordat mijn PDF online staat?</h2>
+<div class="info-box">
+    <strong>Antwoord:</strong> Na het publiceren duurt het 1-2 minuten voordat de website is bijgewerkt. Ververs uw browser (F5 of ⌘+R) om de wijzigingen te zien.
+</div>
+
+<h2>Vraag 3: Mijn PDF wordt niet goed weergegeven op de website</h2>
+<div class="info-box">
+    <strong>Antwoord:</strong>
+    <p>Mogelijke oorzaken:</p>
+    <ul>
+        <li>De PDF is te groot (maximaal 10 MB aanbevolen)</li>
+        <li>De PDF heeft een lage kwaliteit</li>
+    </ul>
+    <p><strong>Oplossing:</strong></p>
+    <ul>
+        <li>Comprimeer uw PDF online (zoek op Google: "PDF comprimeren")</li>
+        <li>Maak de PDF opnieuw met hogere kwaliteit</li>
+    </ul>
+</div>
+
+<h2>Vraag 4: Kan ik meerdere PDF's tegelijk uploaden?</h2>
+<div class="info-box">
+    <strong>Antwoord:</strong> Nee, u moet elke PDF apart uploaden. Maar u kunt wel voor elke sectie (Programma, Vrijetijdstrajectbegeleiding, Over Ons) een eigen PDF uploaden.
+</div>
+
+<h2>Vraag 5: Ik zie mijn wijzigingen niet op de website</h2>
+<div class="info-box">
+    <strong>Antwoord:</strong> Controleer deze dingen:
+    <ul>
+        <li>Heeft u op "Save" geklikt?</li>
+        <li>Heeft u op "Set to Ready" geklikt?</li>
+        <li>Heeft u op "Publish now" geklikt?</li>
+        <li>Heeft u 1-2 minuten gewacht?</li>
+        <li>Heeft u de pagina ververst (F5)?</li>
+    </ul>
+    <p>Als alles klopt en u ziet nog steeds niks, neem dan contact op met de websitebeheerder.</p>
+</div>
+
+<h2>Vraag 6: Kan ik per ongeluk iets kapot maken?</h2>
+<div class="info-box">
+    <strong>Antwoord:</strong> Nee! Alle wijzigingen moeten eerst gepubliceerd worden voordat ze online komen. En als u per ongeluk iets verkeerds publiceert, kunt u dit altijd weer vervangen door een nieuwe PDF te uploaden.
+</div>
+
+<div class="page-break"></div>
+
+<h1 id="hulp">🆘 Hulp Nodig?</h1>
+
+<h2>Wie kunt u contacteren?</h2>
+<p>Als u problemen ondervindt of vragen heeft die niet in deze handleiding staan:</p>
+
+<div class="info-box" style="font-size: 12pt;">
+    <p><strong>Neem contact op met uw websitebeheerder</strong></p>
+    <p>📧 <strong>E-mail:</strong> <span style="color: #d8232a;">[VULT U HIER HET E-MAILADRES VAN DE BEHEERDER IN]</span></p>
+    <p>📞 <strong>Telefoon:</strong> <span style="color: #d8232a;">[VULT U HIER HET TELEFOONNUMMER VAN DE BEHEERDER IN]</span></p>
+</div>
+
+<h2>Nuttige tips voor als u hulp vraagt:</h2>
+<ol>
+    <li>Maak een screenshot van wat u ziet (Print Screen toets op keyboard)</li>
+    <li>Beschrijf wat u probeerde te doen</li>
+    <li>Beschrijf wat er gebeurde</li>
+    <li>Geef aan bij welke stap u vastliep</li>
+</ol>
+<p>Dit helpt de beheerder u sneller te helpen!</p>
+
+<h1>📌 Samenvatting: De Belangrijkste Stappen</h1>
+
+<table>
+    <tr>
+        <th>Fase</th>
+        <th>Stappen</th>
+    </tr>
+    <tr>
+        <td><strong>PDF Uploaden</strong></td>
+        <td>
+            1. Log in op /admin<br>
+            2. Klik op "PDF Secties"<br>
+            3. Kies een sectie<br>
+            4. Upload uw PDF<br>
+            5. Controleer "Actief" vinkje<br>
+            6. Klik op "Save"
+        </td>
+    </tr>
+    <tr>
+        <td><strong>PDF Publiceren</strong></td>
+        <td>
+            7. Klik op "Set to Ready"<br>
+            8. Bevestig<br>
+            9. Ga naar "Workflow"<br>
+            10. Klik op uw PDF in "Ready"<br>
+            11. Klik op "Publish now"<br>
+            12. Bevestig<br>
+            13. Wacht 1-2 minuten<br>
+            14. Controleer de website<br>
+            15. Log uit
+        </td>
+    </tr>
+</table>
+
+<h1>🎯 Checklist voor Elke Upload</h1>
+
+<div class="checklist">
+    <p><strong>Print deze checklist en gebruik hem elke keer als u een PDF uploadt:</strong></p>
+    <ul>
+        <li>Ik ben ingelogd op het admin paneel</li>
+        <li>Ik heb "PDF Secties" geopend</li>
+        <li>Ik heb de juiste sectie gekozen</li>
+        <li>Ik heb mijn PDF bestand geüpload</li>
+        <li>Het vinkje "Actief" staat AAN</li>
+        <li>Ik heb op "Save" geklikt</li>
+        <li>Ik heb op "Set to Ready" geklikt en bevestigd</li>
+        <li>Ik ben naar "Workflow" gegaan</li>
+        <li>Ik heb mijn PDF gevonden in "Ready"</li>
+        <li>Ik heb op "Publish now" geklikt en bevestigd</li>
+        <li>Ik heb 1-2 minuten gewacht</li>
+        <li>Ik heb de website gecontroleerd</li>
+        <li>Mijn PDF staat online!</li>
+        <li>Ik ben uitgelogd</li>
+    </ul>
+</div>
+
+<div class="page-break"></div>
+
+<h1>📚 Extra Informatie</h1>
+
+<h2>PDF Optimalisatie Tips</h2>
+<p>Voor de beste resultaten op uw website:</p>
+<table>
+    <tr>
+        <th>Aspect</th>
+        <th>Aanbeveling</th>
+    </tr>
+    <tr>
+        <td>Bestandsgrootte</td>
+        <td>Houd PDF's onder de 10 MB</td>
+    </tr>
+    <tr>
+        <td>Kwaliteit</td>
+        <td>Gebruik minimaal 150 DPI resolutie</td>
+    </tr>
+    <tr>
+        <td>Lettertype</td>
+        <td>Gebruik leesbare letters (minimaal 12pt)</td>
+    </tr>
+    <tr>
+        <td>Kleuren</td>
+        <td>Gebruik hoog contrast voor leesbaarheid</td>
+    </tr>
+    <tr>
+        <td>Bestandsnaam</td>
+        <td>Gebruik duidelijke namen zonder spaties<br>(bijv: Programma_2025.pdf)</td>
+    </tr>
+</table>
+
+<h2>Beveiligingstips</h2>
+<div class="warning-box">
+    <ul>
+        <li>🔒 <strong>Deel uw wachtwoord NOOIT met anderen</strong></li>
+        <li>🔒 <strong>Gebruik een sterk wachtwoord</strong> (minimaal 12 tekens)</li>
+        <li>🔒 <strong>Log altijd uit</strong> na het werken</li>
+        <li>🔒 <strong>Werk niet op openbare computers</strong> indien mogelijk</li>
+        <li>🔒 <strong>Controleer altijd de URL</strong> voordat u inlogt</li>
+    </ul>
+</div>
+
+<div class="footer">
+    <h2>Vinc vzw Website Beheer Handleiding</h2>
+    <p><strong>Versie 1.0 | Januari 2025</strong></p>
+    <p>© 2025 Vinc vzw</p>
+</div>
+
+</body>
+</html>
