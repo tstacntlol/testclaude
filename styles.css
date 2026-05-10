@@ -98,16 +98,8 @@ a:focus {
 .logo h1 {
     margin: 0;
     color: var(--text-light);
-    font-size: 1.8rem;
-    line-height: 1.15;
-}
-
-.logo-subtitle {
-    display: block;
-    font-size: 0.6em;
-    font-weight: 400;
-    opacity: 0.88;
-    letter-spacing: 0.01em;
+    font-size: 1.35rem;
+    white-space: nowrap;
 }
 
 .logo-image {
